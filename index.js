@@ -60,6 +60,7 @@ app.get('/register', function(req,res){
   i.e. public/css/styles.css (in project) will be accessible through http://localhost:9090/css/styles.css
 **/
 app.use(express.static('public'));
+// app.use(express.static(__dirname + '/public'));
 
 // Listening to the port provided
 app.listen(port, function() {

@@ -13,7 +13,7 @@
 
     cal = new Calendar('#calendar', {
         defaultView: 'month',
-        // useCreationPopup: useCreationPopup,
+        useCreationPopup: useCreationPopup,
         useDetailPopup: useDetailPopup,
         calendars: CalendarList,
         template: {
@@ -173,7 +173,7 @@
 
         setDropdownCalendarType();
         setRenderRangeText();
-        // setSchedules();
+        setSchedules();
     }
 
     function onClickNavi(e) {
@@ -194,7 +194,7 @@
         }
 
         setRenderRangeText();
-        // setSchedules();
+        setSchedules();
     }
 
     function onNewSchedule() {
@@ -254,12 +254,12 @@
         var start = event.start ? new Date(event.start.getTime()) : new Date();
         var end = event.end ? new Date(event.end.getTime()) : moment().add(1, 'hours').toDate();
 
-        // if (useCreationPopup) {
-        //     cal.openCreationPopup({
-        //         start: start,
-        //         end: end
-        //     });
-        // }
+        if (useCreationPopup) {
+            cal.openCreationPopup({
+                start: start,
+                end: end
+            });
+        }
     }
     function saveNewSchedule(scheduleData) {
         var calendar = scheduleData.calendar || findCalendar(scheduleData.calendarId);
@@ -392,7 +392,7 @@
 
     function setSchedules() {
         cal.clear();
-        generateSchedule(cal.getViewName(), cal.getDateRangeStart(), cal.getDateRangeEnd());
+        // generateSchedule(cal.getViewName(), cal.getDateRangeStart(), cal.getDateRangeEnd());
         cal.createSchedules(ScheduleList);
         // var schedules = [
         //     {id: 489273, title: 'Workout for 2019-04-05', isAllDay: false, start: '2018-02-01T11:30:00+09:00', end: '2018-02-01T12:00:00+09:00', goingDuration: 30, comingDuration: 30, color: '#ffffff', isVisible: true, bgColor: '#69BB2D', dragBgColor: '#69BB2D', borderColor: '#69BB2D', calendarId: 'logged-workout', category: 'time', dueDateClass: '', customStyle: 'cursor: default;', isPending: false, isFocused: false, isReadOnly: true, isPrivate: false, location: '', attendees: '', recurrenceRule: '', state: ''},
@@ -408,7 +408,7 @@
         $('#lnb-calendars').on('change', onChangeCalendars);
 
         $('#btn-save-schedule').on('click', onNewSchedule);
-        // $('#btn-new-schedule').on('click', createNewSchedule);
+        $('#btn-new-schedule').on('click', createNewSchedule);
 
         $('#dropdownMenu-calendars-list').on('click', onChangeNewScheduleCalendar);
 
@@ -427,7 +427,7 @@
 
     setDropdownCalendarType();
     setRenderRangeText();
-    // setSchedules();
+    setSchedules();
     setEventListener();
 })(window, tui.Calendar);
 
