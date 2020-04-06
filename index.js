@@ -77,6 +77,16 @@ app.post('/addUser', function(req, res) {
   console.log(req.body);
 });
 
+app.post('/checkUser', function(req, res) {
+  // TODO
+  if (req.body.password === "aaa" && req.body.username == "bbb") {
+  res.status(200).redirect('/calendar');
+  }
+  else {
+    res.send('Incorrect Username and/or Password!');
+  }
+});
+
   /**
   To be able to render images, css and JavaScript files, it's best to host the static files
   and use the expected path in the data and the imports.
