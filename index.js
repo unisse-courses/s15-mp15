@@ -49,7 +49,6 @@ app.get('/', function(req, res) {
     })
 });
 
-
 app.get('/calendar', function(req,res){
     res.render('calendar', {
         title:  'My Calendar',
@@ -64,13 +63,18 @@ app.get('/register', function(req,res){
 
 app.post('/addUser', function(req, res) {
   // TODO
+  if (req.body.password === req.body.passwordConfirm) {
   var student = {
     username: req.body.username, 
     password: req.body.password
   };
   students.push(student);
-  res.status(200).send(student);
-  // console.log(req.body);
+  res.status(200).redirect('/');
+  }
+  else {
+    res.send('Incorrect Username and/or Password!');
+  }
+  console.log(req.body);
 });
 
   /**

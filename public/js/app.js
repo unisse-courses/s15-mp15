@@ -446,19 +446,3 @@
     calendarList.innerHTML = html.join('\n');
 })();
 
-// register field
-$('#register-form').click(function(){
-    var username = $('#username').val();
-    var password = $('#password').val();
-    var passwordConfirm = $('#passwordConfirm').val();
-
-    var newUser={
-        username: username, password: password, passwordConfirm: passwordConfirm
-    };
-    // console.log(user,pass,cPass); 
-    if ($('#password').val() == $('#confirm_password').val()) {
-        $.post('addUser', newUser, function(data,status){
-            console.log(data);});
-      } else 
-        $('#passwordConfirm').html('Not Matching').css('color', 'red');
-    }); 
