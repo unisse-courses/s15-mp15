@@ -1,7 +1,7 @@
 {
   "name": "s15-mp15",
   "version": "1.0.0",
-  "description": "* Custodio, Nicholas Rupert\r * Sanchez, Martin Christopher B.\r * Mapa, Jamie Shekinah",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -18,13 +18,5 @@
     "mongodb": "^3.5.5",
     "mongoose": "^5.9.7",
     "path": "^0.12.7"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/unisse-courses/s15-mp15.git"
-  },
-  "bugs": {
-    "url": "https://github.com/unisse-courses/s15-mp15/issues"
-  },
-  "homepage": "https://github.com/unisse-courses/s15-mp15#readme"
+  }
 }
