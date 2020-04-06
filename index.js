@@ -10,6 +10,16 @@ const mongooose = require('mongoose');
 const app = express();
 const port = 9090;
 
+var students = [
+  {
+    username: 'unissechua@gmail.com',
+    password: 'cuti111'
+  },
+  {
+    username: 'juandelacruz@gmail.com',
+    password: 'ustokomabuhay'
+  }
+];
 
 /**
   Creates an engine called "hbs" using the express-handlebars package.
@@ -50,6 +60,17 @@ app.get('/register', function(req,res){
     res.render('register', {
         title:  'Register',
     })
+});
+
+app.post('/addUser', function(req, res) {
+  // TODO
+  var student = {
+    username: req.body.username, 
+    password: req.body.password
+  };
+  students.push(student);
+  res.status(200).send(student);
+  // console.log(req.body);
 });
 
   /**
