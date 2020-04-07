@@ -4,22 +4,19 @@ const path = require('path');
 const exphbs = require('express-handlebars');
 const handlebars = require('handlebars');
 const bodyParser = require('body-parser');
-const mongooose = require('mongoose');
-
+const mongoose = require('mongoose');
+const mongodb = require('mongodb');
+const User = require('./models/user')
 // Creates the express application
 const app = express();
 const port = 9090;
 
-var students = [
-  {
-    username: 'unissechua@gmail.com',
-    password: 'cuti111'
-  },
-  {
-    username: 'juandelacruz@gmail.com',
-    password: 'ustokomabuhay'
-  }
-];
+//database connection constants
+const databaseURL = "mongodb+srv://G15:1234@calendar-xd9qk.gcp.mongodb.net/test?retryWrites=true&w=majority";
+const options = { useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useFindAndModify: false };
+mongoose.connect(databaseURL, options);
 
 /**
   Creates an engine called "hbs" using the express-handlebars package.
@@ -37,7 +34,6 @@ app.engine( 'hbs', exphbs({
   // Configuration for handling API endpoint data
   app.use(bodyParser.json()); // support json encoded bodies
   app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
-  
 
 
   // Home route
@@ -61,20 +57,27 @@ app.get('/register', function(req,res){
     })
 });
 
+
 app.post('/addUser', function(req, res) {
-  // TODO
-  if (req.body.password === req.body.passwordConfirm) {
-  var student = {
-    username: req.body.username, 
-    password: req.body.password
-  };
-  students.push(student);
-  res.status(200).redirect('/');
-  }
-  else {
-    res.send('Incorrect Username and/or Password!');
-  }
-  console.log(req.body);
+  if(req.body.password === req.body.passwordConfirm){
+  var user = new User({
+    _id:new mongoose.Types.ObjectId(),
+    username: req.body.username,
+    password: req.body.password,
+    
+  });
+
+  user.save(function(err, user) {
+    var result;
+
+    if (err) {
+      //
+      
+    } else {
+      res.status(200).redirect('/');
+    }
+  }); 
+}
 });
 
 app.post('/checkUser', function(req, res) {
