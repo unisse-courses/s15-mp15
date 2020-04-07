@@ -12,7 +12,7 @@ const app = express();
 const port = 9090;
 
 //database connection constants
-const databaseURL = "mongodb+srv://G15:1234@calendar-xd9qk.gcp.mongodb.net/test?retryWrites=true&w=majority";
+const databaseURL = "mongodb://G15:1234@calendar-shard-00-00-xd9qk.gcp.mongodb.net:27017,calendar-shard-00-01-xd9qk.gcp.mongodb.net:27017,calendar-shard-00-02-xd9qk.gcp.mongodb.net:27017/test?ssl=true&replicaSet=Calendar-shard-0&authSource=admin&retryWrites=true&w=majority";
 const options = { useNewUrlParser: true,
   useUnifiedTopology: true,
   useFindAndModify: false };
