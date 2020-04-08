@@ -130,7 +130,7 @@ app.post('/checkUser', function(req, res) {
 });
 
 
-//USER LOAD DATA
+//USER Save DATA
 
 
   /**
