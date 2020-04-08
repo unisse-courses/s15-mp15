@@ -5,8 +5,12 @@ const exphbs = require('express-handlebars');
 const handlebars = require('handlebars');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
 const mongodb = require('mongodb');
+
+//Models
 const User = require('./models/user')
+
 // Creates the express application
 const app = express();
 const port = 9090;
@@ -58,38 +62,76 @@ app.get('/register', function(req,res){
     })
 });
 
-
+//USER SIGN UP
 app.post('/addUser', function(req, res) {
   if(req.body.password === req.body.passwordConfirm){
-  var user = new User({
-    _id:new mongoose.Types.ObjectId(),
-    username: req.body.username,
-    password: req.body.password,
-    
-  });
+    bcrypt.hash(req.body.password, 10, (err, hash) => {
+      if(err){
+        return res.status(500).json({
+            error: err
+        });
+      } else{
+        var user = new User({
+          _id:new mongoose.Types.ObjectId(),
+          username: req.body.username,
+          password: hash
+         });
 
-  user.save(function(err, user) {
-    var result;
-
-    if (err) {
-      //
-      
-    } else {
-      res.status(200).redirect('/');
-    }
-  }); 
-}
+         user.save()
+         .then(result => {
+            res.status(201).redirect('/');
+         })
+         .catch(err=>{
+          console.log(err);
+          res.status(500).json({
+            error: err
+          });
+        });
+      }
+    });
+  }
+  else{
+    return res.status(500).json({
+      message: "Passwords do not match"
+    });
+  }
 });
 
+//USER LOGIN 
 app.post('/checkUser', function(req, res) {
-  // TODO
-  if (req.body.password === "aaa" && req.body.username == "bbb") {
-  res.status(200).redirect('/calendar');
-  }
-  else {
-    res.send('Incorrect Username and/or Password!');
-  }
+    User.find({username: req.body.username})
+    .exec()
+    .then(user => {
+        if(user.length < 1){
+          return res.status(401).json({
+              message: 'Auth failed'
+          });
+        }
+        bcrypt.compare(req.body.password, user[0].password, (err, result) =>{
+          if(err){
+            return res.status(401).json({
+                message: 'Auth failed'
+            });
+          }
+            if(result){
+              return res.status(200).redirect('/calendar');
+            }
+              res.status(401).json({
+                message: 'Auth failed'
+            });
+        });
+    })
+    .catch(err=>{
+      console.log(err);
+      res.status(500).json({
+        error: err
+      });
+    });
 });
+
+
+//USER LOAD DATA
+
 
   /**
   To be able to render images, css and JavaScript files, it's best to host the static files
