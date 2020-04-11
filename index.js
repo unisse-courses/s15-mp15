@@ -130,10 +130,11 @@ app.post('/checkUser', function(req, res) {
     });
 });
 
-app.post('/print',  function(req, res) {
+//add Sched
+app.post('/addSched',  function(req, res) {
   var schedule = new Schedule({
     _id:new mongoose.Types.ObjectId(),
-    CalendarId: req.body.CalendarId,
+    calendarId: req.body.calendarId,
     title: req.body.title,
     location: req.body.location, 
     raw: {class: req.body.raw.class},
@@ -142,7 +143,7 @@ app.post('/print',  function(req, res) {
     isAllDay: req.body.isAllDay,
     state: req.body.state,
    });
-
+   
   schedule.save()
    .then(result => {
       res.status(201);
@@ -155,8 +156,18 @@ app.post('/print',  function(req, res) {
   });
 });
 
+//Load Scheds
+app.get('/loadScheds', function(req, res) {
+  Schedule.find().exec(function(err, result) {
+    var scheduleObjects = [];
 
-//USER Save DATA
+    result.forEach(function(doc) {
+      scheduleObjects.push(doc.toObject());
+    });
+    
+    res.json({schedules: scheduleObjects });
+  });
+});
 
 
   /**

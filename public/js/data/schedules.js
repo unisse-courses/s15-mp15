@@ -105,6 +105,7 @@ function generateNames() {
     return names;
 }
 
+//random item generator
 function generateRandomSchedule(calendar, renderStart, renderEnd) {
     var schedule = new ScheduleInfo();
 

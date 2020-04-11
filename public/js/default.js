@@ -95,7 +95,7 @@ function onClickMenu(e) {
   setRenderRangeText();
   setSchedules();
 }
-
+/** 
 function onClickNavi(e) {
   var action = getDataAction(e.target);
 
@@ -116,7 +116,7 @@ function onClickNavi(e) {
   setRenderRangeText();
   setSchedules();
 }
-
+*/
 function setRenderRangeText() {
   var renderRange = document.getElementById('renderRange');
   var options = cal.getOptions();
