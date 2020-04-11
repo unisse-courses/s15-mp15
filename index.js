@@ -9,7 +9,8 @@ const bcrypt = require('bcryptjs');
 const mongodb = require('mongodb');
 
 //Models
-const User = require('./models/user')
+const User = require('./models/user');
+const Schedule = require('./models/schedules');
 
 // Creates the express application
 const app = express();
@@ -127,6 +128,31 @@ app.post('/checkUser', function(req, res) {
         error: err
       });
     });
+});
+
+app.post('/print',  function(req, res) {
+  var schedule = new Schedule({
+    _id:new mongoose.Types.ObjectId(),
+    CalendarId: req.body.CalendarId,
+    title: req.body.title,
+    location: req.body.location, 
+    raw: {class: req.body.raw.class},
+    start: req.body.start,
+    end: req.body.end,
+    isAllDay: req.body.isAllDay,
+    state: req.body.state,
+   });
+
+  schedule.save()
+   .then(result => {
+      res.status(201);
+   })
+   .catch(err=>{
+    console.log(err);
+    res.status(500).json({
+      error: err
+    });
+  });
 });
 
 

@@ -42,7 +42,17 @@
         },
         'beforeCreateSchedule': function(e) {
             console.log('beforeCreateSchedule', e);
-            saveNewSchedule(e);
+            saveNewSchedule(e); 
+            $.post('/print', { 
+                CalendarId: e.CalendarId,
+                title: e.title,
+                location: e.location, 
+                raw: {class: e.raw.class},
+                start: e.start.toDate(),
+                end: e.end.toDate(),
+                isAllDay: e.isAllDay,
+                state: e.state,
+            });
         },
         'beforeUpdateSchedule': function(e) {
             var schedule = e.schedule;
