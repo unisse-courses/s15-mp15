@@ -61,13 +61,48 @@ $( document ).ready(function() {
         'beforeUpdateSchedule': function(e) {
             var schedule = e.schedule;
             var changes = e.changes;
-
             console.log('beforeUpdateSchedule', e);
             cal.updateSchedule(schedule.id, schedule.calendarId, changes);
+            $.post('/updateSched', { 
+                calendarId: e.schedule.calendarId,
+                title: e.schedule.title,
+                location: e.schedule.location, 
+                raw: {class: e.schedule.raw.class},
+                start: e.schedule.start.toDate(),
+                end: e.schedule.end.toDate(),
+                isAllDay: e.schedule.isAllDay,
+                state: e.schedule.state,
+                new: e.changes,
+                username: user
+            });
             refreshScheduleVisibility();
         },
         'beforeDeleteSchedule': function(e) {
             console.log('beforeDeleteSchedule', e);
+          
+            $.ajax({
+                url: '/deleteSched',
+                type: 'DELETE',
+                dataType: 'json',
+                data: {
+                    calendarId: e.schedule.calendarId,
+                    title: e.schedule.title,
+                    location: e.schedule.location, 
+                    raw: {class: e.schedule.raw.class},
+                    start: e.schedule.start.toDate(),
+                    end: e.schedule.end.toDate(),
+                    isAllDay: e.schedule.isAllDay,
+                    state: e.schedule.state,
+                    username: user
+                },
+                success: function(response) {
+                    console.log(response);
+                },
+                error: function(response) {
+                    console.log(response);
+                }
+            });
+
             cal.deleteSchedule(e.schedule.id, e.schedule.calendarId);
         },
         'afterRenderSchedule': function(e) {

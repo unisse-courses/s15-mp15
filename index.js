@@ -177,6 +177,54 @@ app.get('/loadScheds', function(req, res) {
   });
 });
 
+//update scheds
+app.post('/updateSched', function(req, res) {
+  
+  var query = {
+    calendarId: req.body.calendarId,
+    username: req.body.username,
+    title: req.body.title,
+    location: req.body.location, 
+    raw: {class: req.body.raw.class},
+    start: req.body.start,
+    end: req.body.end,
+    isAllDay: req.body.isAllDay,
+    state: req.body.state,
+  };
+
+  var update = {
+    $set: req.body.new
+  };
+
+  Schedule.findOneAndUpdate(query, update, { new: true }, function(err, user) {
+    if (err) throw err;
+    console.log(user);
+    res.send(user);
+  });
+});
+
+//Delete Scheds
+app.delete('/deleteSched', function(req,res){
+  
+  var query = {
+    calendarId: req.body.calendarId,
+    username: req.body.username,
+    title: req.body.title,
+    location: req.body.location, 
+    raw: {class: req.body.raw.class},
+    start: req.body.start,
+    end: req.body.end,
+    isAllDay: req.body.isAllDay,
+    state: req.body.state,
+  };
+
+  Schedule.deleteOne(query, function (err, sched) {
+    if (err) throw err
+    console.log(sched);
+    res.status(200).send();
+  });
+
+});
 
   /**
   To be able to render images, css and JavaScript files, it's best to host the static files
