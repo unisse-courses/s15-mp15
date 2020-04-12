@@ -63,7 +63,6 @@ $( document ).ready(function() {
             var changes = e.changes;
 
             console.log('beforeUpdateSchedule', e);
-
             cal.updateSchedule(schedule.id, schedule.calendarId, changes);
             refreshScheduleVisibility();
         },
@@ -464,3 +463,4 @@ $( document ).ready(function() {
 })();
 
 });
+
