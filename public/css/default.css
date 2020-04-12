@@ -68,8 +68,10 @@ body {
 #top {
   height: 49px;
   border-bottom: 1px solid #bbb;
-  padding: 16px;
-  font-size: 10px;
+  padding: 10px;
+  font-family: 'Noto Sans', sans-serif;
+  color: '#333';
+  font-size: 25px;
 }
 
 #lnb {
@@ -251,6 +253,4 @@ body {
   max-width: 600px;
   height: 320px;
 }
-
-
 

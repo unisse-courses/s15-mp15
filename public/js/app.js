@@ -4,23 +4,15 @@
 /* eslint-env jquery */
 /* global moment, tui, chance */
 /* global findCalendar, CalendarList, ScheduleList, generateSchedule */
+$( document ).ready(function() {
 
 (function(window, Calendar) {
     var cal, resizeThrottled;
     var useCreationPopup = true;
     var useDetailPopup = true;
     var datePicker, selectedCalendar;
-
     var savedScheds = [];
-    $.get( "/loadScheds", function( data ) {
-        savedScheds = data.schedules;
-        savedScheds.forEach(element => {
-            element.start = Date.parse (element.start);
-            element.end = Date.parse (element.end);
-            saveNewSchedule(element);
-        });
-    });
-
+    var user = document.getElementById('username').innerHTML;
 
     cal = new Calendar('#calendar', {
         defaultView: 'month',
@@ -56,6 +48,7 @@
             saveNewSchedule(e); 
             $.post('/addSched', { 
                 calendarId: e.calendarId,
+                username: user,
                 title: e.title,
                 location: e.location, 
                 raw: {class: e.raw.class},
@@ -412,8 +405,17 @@
     }
 
     function setSchedules() {
-        generateSchedule(cal.getViewName(), cal.getDateRangeStart(), cal.getDateRangeEnd());
-        cal.createSchedules(ScheduleList);
+        cal.clear();
+        //generateSchedule(cal.getViewName(), cal.getDateRangeStart(), cal.getDateRangeEnd());
+       // cal.createSchedules(ScheduleList);
+       $.get( "/loadScheds", { username: user}, function( data ) {
+        savedScheds = data.schedules;
+        savedScheds.forEach(element => {
+            element.start = Date.parse (element.start);
+            element.end = Date.parse (element.end);
+            saveNewSchedule(element);
+        });
+    });
         refreshScheduleVisibility();
     }
 
@@ -461,3 +463,4 @@
     calendarList.innerHTML = html.join('\n');
 })();
 
+});

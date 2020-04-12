@@ -51,10 +51,40 @@ app.get('/', function(req, res) {
     })
 });
 
-app.get('/calendar', function(req,res){
-    res.render('calendar', {
-        title:  'My Calendar',
+app.post('/calendar', function(req,res){
+  User.find({username: req.body.username})
+    .exec()
+    .then(user => {
+        if(user.length < 1){
+          return res.status(401).json({
+              message: 'Auth failed'
+          });
+        }
+        bcrypt.compare(req.body.password, user[0].password, (err, result) =>{
+          if(err){
+            return res.status(401).json({
+                message: 'Auth failed'
+            });
+          }
+            if(result){
+              return res.status(200).render('calendar', {
+                title:  'My Calendar',
+                username: user[0].username,
+            })
+            }
+            else{
+                return res.status(401).json({
+                  message: 'Auth failed'
+              });
+            }
+        });
     })
+    .catch(err=>{
+      console.log(err);
+      res.status(500).json({
+        error: err
+      });
+    });
 });
 
 app.get('/register', function(req,res){
@@ -100,34 +130,7 @@ app.post('/addUser', function(req, res) {
 
 //USER LOGIN 
 app.post('/checkUser', function(req, res) {
-    User.find({username: req.body.username})
-    .exec()
-    .then(user => {
-        if(user.length < 1){
-          return res.status(401).json({
-              message: 'Auth failed'
-          });
-        }
-        bcrypt.compare(req.body.password, user[0].password, (err, result) =>{
-          if(err){
-            return res.status(401).json({
-                message: 'Auth failed'
-            });
-          }
-            if(result){
-              return res.status(200).redirect('/calendar');
-            }
-              res.status(401).json({
-                message: 'Auth failed'
-            });
-        });
-    })
-    .catch(err=>{
-      console.log(err);
-      res.status(500).json({
-        error: err
-      });
-    });
+    
 });
 
 //add Sched
@@ -135,6 +138,7 @@ app.post('/addSched',  function(req, res) {
   var schedule = new Schedule({
     _id:new mongoose.Types.ObjectId(),
     calendarId: req.body.calendarId,
+    username: req.body.username,
     title: req.body.title,
     location: req.body.location, 
     raw: {class: req.body.raw.class},
@@ -158,7 +162,7 @@ app.post('/addSched',  function(req, res) {
 
 //Load Scheds
 app.get('/loadScheds', function(req, res) {
-  Schedule.find().exec(function(err, result) {
+  Schedule.find({username: req.query.username}).exec(function(err, result) {
     var scheduleObjects = [];
 
     result.forEach(function(doc) {
