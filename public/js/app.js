@@ -13,7 +13,7 @@ $( document ).ready(function() {
     var datePicker, selectedCalendar;
     var savedScheds = [];
     var user = document.getElementById('username').innerHTML;
-
+    
     cal = new Calendar('#calendar', {
         defaultView: 'month',
         useCreationPopup: useCreationPopup,
@@ -45,7 +45,6 @@ $( document ).ready(function() {
         },
         'beforeCreateSchedule': function(e) {
             console.log('beforeCreateSchedule', e);
-            saveNewSchedule(e); 
             $.post('/addSched', { 
                 calendarId: e.calendarId,
                 username: user,
@@ -57,12 +56,20 @@ $( document ).ready(function() {
                 isAllDay: e.isAllDay,
                 state: e.state,
             });
+            saveNewSchedule(e); 
         },
         'beforeUpdateSchedule': function(e) {
             var schedule = e.schedule;
             var changes = e.changes;
             console.log('beforeUpdateSchedule', e);
-            cal.updateSchedule(schedule.id, schedule.calendarId, changes);
+            if (e.changes.start != null)
+            {
+                e.changes.start = e.changes.start.toDate();
+            }
+            if (e.changes.end != null)
+            {
+                e.changes.end = e.changes.end.toDate();
+            }
             $.post('/updateSched', { 
                 calendarId: e.schedule.calendarId,
                 title: e.schedule.title,
@@ -75,6 +82,7 @@ $( document ).ready(function() {
                 new: e.changes,
                 username: user
             });
+            cal.updateSchedule(schedule.id, schedule.calendarId, changes);
             refreshScheduleVisibility();
         },
         'beforeDeleteSchedule': function(e) {
@@ -445,8 +453,8 @@ $( document ).ready(function() {
        $.get( "/loadScheds", { username: user}, function( data ) {
         savedScheds = data.schedules;
         savedScheds.forEach(element => {
-            element.start = Date.parse (element.start);
-            element.end = Date.parse (element.end);
+            element.start = Date.parse(element.start);
+            element.end = Date.parse(element.end);
             saveNewSchedule(element);
         });
     });

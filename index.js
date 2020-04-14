@@ -191,7 +191,7 @@ app.post('/updateSched', function(req, res) {
     isAllDay: req.body.isAllDay,
     state: req.body.state,
   };
-
+  
   var update = {
     $set: req.body.new
   };
