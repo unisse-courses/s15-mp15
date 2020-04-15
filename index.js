@@ -56,7 +56,7 @@ app.get('/', function(req, res) {
 });
 
 app.post('/calendar', function(req,res){
-  User.find({username: req.body.username})
+  User.find({email: req.body.username})
     .exec()
     .then(user => {
         if(user.length < 1){
@@ -73,7 +73,7 @@ app.post('/calendar', function(req,res){
             if(result){
               return res.status(200).render('calendar', {
                 title:  'My Calendar',
-                username: user[0].username,
+                email: user[0].email,
             })
             }
             else{
@@ -107,8 +107,7 @@ app.post('/addUser', function(req, res) {
         });
       } else{
         var user = new User({
-          _id:new mongoose.Types.ObjectId(),
-          username: req.body.username,
+          email: req.body.username,
           password: hash
          });
 
@@ -132,17 +131,12 @@ app.post('/addUser', function(req, res) {
   }
 });
 
-//USER LOGIN 
-app.post('/checkUser', function(req, res) {
-    
-});
 
 //add Sched
 app.post('/addSched',  function(req, res) {
   var schedule = new Schedule({
-    _id:new mongoose.Types.ObjectId(),
     calendarId: req.body.calendarId,
-    username: req.body.username,
+    email: req.body.email,
     title: req.body.title,
     location: req.body.location, 
     raw: {class: req.body.raw.class},
@@ -166,7 +160,7 @@ app.post('/addSched',  function(req, res) {
 
 //Load Scheds
 app.get('/loadScheds', function(req, res) {
-  Schedule.find({username: req.query.username}).exec(function(err, result) {
+  Schedule.find({email: req.query.email}).exec(function(err, result) {
     var scheduleObjects = [];
 
     result.forEach(function(doc) {
@@ -182,7 +176,7 @@ app.post('/updateSched', function(req, res) {
   
   var query = {
     calendarId: req.body.calendarId,
-    username: req.body.username,
+    email: req.body.email,
     title: req.body.title,
     location: req.body.location, 
     raw: {class: req.body.raw.class},
@@ -208,7 +202,7 @@ app.delete('/deleteSched', function(req,res){
   
   var query = {
     calendarId: req.body.calendarId,
-    username: req.body.username,
+    email: req.body.email,
     title: req.body.title,
     location: req.body.location, 
     raw: {class: req.body.raw.class},

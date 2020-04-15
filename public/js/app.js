@@ -12,7 +12,7 @@ $( document ).ready(function() {
     var useDetailPopup = true;
     var datePicker, selectedCalendar;
     var savedScheds = [];
-    var user = document.getElementById('username').innerHTML;
+    var user = document.getElementById('email').innerHTML;
     
     cal = new Calendar('#calendar', {
         defaultView: 'month',
@@ -47,7 +47,7 @@ $( document ).ready(function() {
             console.log('beforeCreateSchedule', e);
             $.post('/addSched', { 
                 calendarId: e.calendarId,
-                username: user,
+                email: user,
                 title: e.title,
                 location: e.location, 
                 raw: {class: e.raw.class},
@@ -80,7 +80,7 @@ $( document ).ready(function() {
                 isAllDay: e.schedule.isAllDay,
                 state: e.schedule.state,
                 new: e.changes,
-                username: user
+                email: user
             });
             cal.updateSchedule(schedule.id, schedule.calendarId, changes);
             refreshScheduleVisibility();
@@ -101,7 +101,7 @@ $( document ).ready(function() {
                     end: e.schedule.end.toDate(),
                     isAllDay: e.schedule.isAllDay,
                     state: e.schedule.state,
-                    username: user
+                    email: user
                 },
                 success: function(response) {
                     console.log(response);
@@ -450,7 +450,7 @@ $( document ).ready(function() {
         cal.clear();
         //generateSchedule(cal.getViewName(), cal.getDateRangeStart(), cal.getDateRangeEnd());
        // cal.createSchedules(ScheduleList);
-       $.get( "/loadScheds", { username: user}, function( data ) {
+       $.get( "/loadScheds", { email: user}, function( data ) {
         savedScheds = data.schedules;
         savedScheds.forEach(element => {
             element.start = Date.parse(element.start);
