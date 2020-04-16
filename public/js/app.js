@@ -12,8 +12,10 @@ $( document ).ready(function() {
     var useDetailPopup = true;
     var datePicker, selectedCalendar;
     var savedScheds = [];
+    var CalendarList = [];
     var user = document.getElementById('email').innerHTML;
     
+    loadCalendars();
     cal = new Calendar('#calendar', {
         defaultView: 'month',
         useCreationPopup: useCreationPopup,
@@ -30,8 +32,8 @@ $( document ).ready(function() {
                 return getTimeTemplate(schedule, false);
             }
         }
-    });
-
+    });   
+    
     // event handlers
     cal.on({
         'clickMore': function(e) {
@@ -252,6 +254,72 @@ $( document ).ready(function() {
         setRenderRangeText();
         setSchedules();
     }
+
+    // set calendars
+    function loadCalendars() {
+        $.get( "/loadCalendars", function( data ) {
+            var Calendars = data.calendars;
+            var calendarList = document.getElementById('calendarList');
+            var html = [];
+            Calendars.forEach(function(calendar, i) {
+                html.push('<div class="lnb-calendars-item"><label>' +
+                    '<input type="checkbox" class="tui-full-calendar-checkbox-round" value="' + calendar.id + '" checked>' +
+                    '<span style="border-color: ' + calendar.borderColor + '; background-color: ' + calendar.borderColor + ';"></span>' +
+                    '<span>' + calendar.name + '</span>' +
+                    '</label></div>'
+                );
+                if(i >= CalendarList.length)
+                    CalendarList.push(calendar);
+            });
+            calendarList.innerHTML = html.join('\n');
+         });
+    }
+
+    function findCalendar(id) {
+        var found;
+    
+        CalendarList.forEach(function(calendar) {
+            if (calendar.id === id) {
+                found = calendar;
+            }
+        });
+    
+        return found || CalendarList[0];
+    }
+
+    function hexToRGBA(hex) {
+        var radix = 16;
+        var r = parseInt(hex.slice(1, 3), radix),
+            g = parseInt(hex.slice(3, 5), radix),
+            b = parseInt(hex.slice(5, 7), radix),
+            a = parseInt(hex.slice(7, 9), radix) / 255 || 1;
+        var rgba = 'rgba(' + r + ', ' + g + ', ' + b + ', ' + a + ')';
+    
+        return rgba;
+    }
+
+    //add calendar
+    $(document).on('submit','#colorForm', function(event){ 
+        event.preventDefault();
+        console.log(this);
+        var data = $(this).serialize() + '&id=' + (CalendarList.length+1);
+        $.ajax({
+            type: 'POST',
+            url: '/addCalendar',
+            data: data,
+            dataType: 'json',
+            success: function(data){
+                loadCalendars();
+                $('#calendarpop').popover('hide');
+                $('#colorForm').trigger("reset");
+                
+            },
+            error: function(data){
+                console.log("error");
+            },
+        });
+    });
+   
 
     function onNewSchedule() {
         var title = $('#new-schedule-title').val();
@@ -490,20 +558,21 @@ $( document ).ready(function() {
     setEventListener();
 })(window, tui.Calendar);
 
-// set calendars
-(function() {
-    var calendarList = document.getElementById('calendarList');
-    var html = [];
-    CalendarList.forEach(function(calendar) {
-        html.push('<div class="lnb-calendars-item"><label>' +
-            '<input type="checkbox" class="tui-full-calendar-checkbox-round" value="' + calendar.id + '" checked>' +
-            '<span style="border-color: ' + calendar.borderColor + '; background-color: ' + calendar.borderColor + ';"></span>' +
-            '<span>' + calendar.name + '</span>' +
-            '</label></div>'
-        );
+
+    $('#calendarpop').popover({
+    container: 'body',
+    html: true,
+    placement: 'right',
+    sanitize: false,
+    content: function() {
+        return $('#popForm').html()
+    }
+    })
+
+
+    $(document).on("click", ".popover .close" , function(){
+        $(this).parents(".popover").popover('hide');
     });
-    calendarList.innerHTML = html.join('\n');
-})();
 
 });
 
