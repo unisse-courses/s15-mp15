@@ -224,50 +224,46 @@ app.delete('/deleteSched', function(req,res){
 
 //Get calendars
 app.get('/getCalendars', function(req,res){
-  Calendar.find({}).exec(function(err, result) {
-    var calendarObjects = [];
+  User.findOne({email: req.body.user}, function(err, user){
+    const userId = user._id;
 
-    result.forEach(function(doc) {
-      calendarObjects.push(doc.toObject());
-    });
-    
-    res.json({calendars: calendarObjects });
+
   });
 });
 
 //add calendar
 app.post('/addCalendar', async(req, res) =>{
-  console.log(req.body);
-   var calendar = new Calendar({
-    id: req.body.id,
-    name: req.body.tag,
-    checked: true, 
-    color: req.body.colorpicker,
-    bgColor: req.body.colorpicker,
-    borderColor: req.body.colorpicker,
-    dragBgColor: req.body.colorpicker,
-   });
-   
-   try {
-    await calendar.save();
-    res.status(201).send(calendar);
-  } catch (err) {
-    res.status(500).send(err);
-  }
+ 
+      var calendar = new Calendar({
+        id: req.body.id,
+        name: req.body.tag,
+        checked: true, 
+        color: req.body.colorpicker,
+        bgColor: req.body.colorpicker,
+        borderColor: req.body.colorpicker,
+        dragBgColor: req.body.colorpicker,
+        user: req.body.user,
+      });
+      
+      try {
+        await calendar.save();
+        res.status(201).send(calendar);
+      } catch (err) {
+        res.status(500).send(err);
+      }
 });
 
-
 //Load Calendars
-app.get('/loadCalendars', function(req, res) {
-  Calendar.find({}).exec(function(err, result) {
-    var calendarObjects = [];
+app.get('/loadCalendars/:user', function(req, res) {  
+    Calendar.find({user: req.params.user}).exec(function(err, result) {
+      var calendarObjects = [];
 
-    result.forEach(function(doc) {
-      calendarObjects.push(doc.toObject());
+      result.forEach(function(doc) {
+        calendarObjects.push(doc.toObject());
+      });
+      
+      res.json({calendars: calendarObjects });
     });
-    
-    res.json({calendars: calendarObjects });
-  });
 });
   /**
   To be able to render images, css and JavaScript files, it's best to host the static files

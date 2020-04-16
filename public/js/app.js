@@ -257,7 +257,7 @@ $( document ).ready(function() {
 
     // set calendars
     function loadCalendars() {
-        $.get( "/loadCalendars", function( data ) {
+        $.get( "/loadCalendars/" + user, function( data ) {
             var Calendars = data.calendars;
             var calendarList = document.getElementById('calendarList');
             var html = [];
@@ -274,6 +274,7 @@ $( document ).ready(function() {
             calendarList.innerHTML = html.join('\n');
          });
     }
+
 
     function findCalendar(id) {
         var found;
@@ -301,8 +302,7 @@ $( document ).ready(function() {
     //add calendar
     $(document).on('submit','#colorForm', function(event){ 
         event.preventDefault();
-        console.log(this);
-        var data = $(this).serialize() + '&id=' + (CalendarList.length+1);
+        var data = $(this).serialize() + '&id=' + (CalendarList.length+1) + '&user=' + user;
         $.ajax({
             type: 'POST',
             url: '/addCalendar',

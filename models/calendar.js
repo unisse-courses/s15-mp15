@@ -8,6 +8,7 @@ const calendarSchema = mongoose.Schema({
     bgColor: String,
     borderColor: String,
     dragBgColor: String,
+    user: String,
 });
       
 module.exports = mongoose.model('Calendar',calendarSchema);
