@@ -267,9 +267,12 @@ body {
 
 #login-row{
   position: relative;
-  background-color: rgb(200,200,200,.3);
-  top:30%;
-  width:fit-content;
+  background-color: rgb(255,255,255,.9);
+  top:27.5%;
+  width:450px;
+  border-radius: 10%;
+  padding-top:5%;
+  padding-bottom:2.5%;
 }
 #header{
   background-color: #999999;
@@ -301,10 +304,21 @@ body {
   height: 100%;
   width: 100%;
   background-image:url(../images/index-bg.png);
-  background-size: 100%;
+  background-size: fill;
+  background-repeat: no-repeat;
 
 }
 h1, h2{
   color:white;
   text-shadow: 2px 2px #666666;
+}
+
+
+.btn-xl {
+  padding: 10px 10px;
+  font-size: 20px;
+  border-radius: 10px;
+  color: white;
+  background-color: #333333;
+  width:100%;
 }
