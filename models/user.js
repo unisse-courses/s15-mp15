@@ -5,5 +5,17 @@ const userSchema = mongoose.Schema({
     password: {type: String, required: true} ,
   });
   
-  module.exports = mongoose.model('User',userSchema);
+  const User = mongoose.model('User',userSchema);
   
+  exports.findUser = function(email, next){
+    User.find(email).exec(function(err, user) {
+        next(err,user);
+    });
+  }
+
+  exports.reg = function(obj, next){
+    user = new User(obj);
+    user.save(function(err, result){
+      next(err,result);
+  });
+  }

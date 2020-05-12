@@ -5,13 +5,13 @@ const exphbs = require('express-handlebars');
 const handlebars = require('handlebars');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
 const mongodb = require('mongodb');
 
-//Models
-const User = require('./models/user');
-const Schedule = require('./models/schedules');
-const Calendar = require('./models/calendar');
+//Routers
+const userRouter = require('./routes/userRoutes');
+const schedulesRouter = require('./routes/schedulesRoutes');
+const calendarRouter = require('./routes/calendarRoutes');
+
 
 // Creates the express application
 const app = express();
@@ -47,7 +47,7 @@ app.engine( 'hbs', exphbs({
     next();
   });
 
-  // Home route
+//Home route (Login Page)
 app.get('/', function(req, res) {
     // The render function takes the template filename (no extension - that's what the config is for!)
     // and an object for what's needed in that template
@@ -56,215 +56,18 @@ app.get('/', function(req, res) {
     })
 });
 
-app.post('/calendar', function(req,res){
-  User.find({email: req.body.username})
-    .exec()
-    .then(user => {
-        if(user.length < 1){
-          return res.status(401).json({
-              message: 'Auth failed'
-          });
-        }
-        bcrypt.compare(req.body.password, user[0].password, (err, result) =>{
-          if(err){
-            return res.status(401).json({
-                message: 'Auth failed'
-            });
-          }
-            if(result){
-              return res.status(200).render('calendar', {
-                title:  'My Calendar',
-                email: user[0].email,
-            })
-            }
-            else{
-                return res.status(401).json({
-                  message: 'Auth failed'
-              });
-            }
-        });
-    })
-    .catch(err=>{
-      console.log(err);
-      res.status(500).json({
-        error: err
-      });
-    });
-});
-
+//Register Page
 app.get('/register', function(req,res){
-    res.render('register', {
-        title:  'Register',
-    })
+  res.render('register', {
+      title:  'Register',
+  })
 });
 
-//USER SIGN UP
-app.post('/addUser', function(req, res) {
-  if(req.body.password === req.body.passwordConfirm){
-    bcrypt.hash(req.body.password, 10, (err, hash) => {
-      if(err){
-        return res.status(500).json({
-            error: err
-        });
-      } else{
-        var user = new User({
-          email: req.body.username,
-          password: hash
-         });
-
-         user.save()
-         .then(result => {
-            res.status(201).redirect('/');
-         })
-         .catch(err=>{
-          console.log(err);
-          res.status(500).json({
-            error: err
-          });
-        });
-      }
-    });
-  }
-  else{
-    return res.status(500).json({
-      message: "Passwords do not match"
-    });
-  }
-});
+app.use('/user', userRouter);
+app.use('/schedules', schedulesRouter);
+app.use('/calendar', calendarRouter);
 
 
-//add Sched
-app.post('/addSched',  function(req, res) {
-  var schedule = new Schedule({
-    calendarId: req.body.calendarId,
-    email: req.body.email,
-    title: req.body.title,
-    location: req.body.location, 
-    raw: {class: req.body.raw.class},
-    start: req.body.start,
-    end: req.body.end,
-    isAllDay: req.body.isAllDay,
-    state: req.body.state,
-   });
-   
-  schedule.save()
-   .then(result => {
-      res.status(201);
-   })
-   .catch(err=>{
-    console.log(err);
-    res.status(500).json({
-      error: err
-    });
-  });
-});
-
-//Load Scheds
-app.get('/loadScheds', function(req, res) {
-  Schedule.find({email: req.query.email}).exec(function(err, result) {
-    var scheduleObjects = [];
-
-    result.forEach(function(doc) {
-      scheduleObjects.push(doc.toObject());
-    });
-    
-    res.json({schedules: scheduleObjects });
-  });
-});
-
-//update scheds
-app.post('/updateSched', function(req, res) {
-  
-  var query = {
-    calendarId: req.body.calendarId,
-    email: req.body.email,
-    title: req.body.title,
-    location: req.body.location, 
-    raw: {class: req.body.raw.class},
-    start: req.body.start,
-    end: req.body.end,
-    isAllDay: req.body.isAllDay,
-    state: req.body.state,
-  };
-  
-  var update = {
-    $set: req.body.new
-  };
-
-  Schedule.findOneAndUpdate(query, update, { new: true }, function(err, user) {
-    if (err) throw err;
-    console.log(user);
-    res.send(user);
-  });
-});
-
-//Delete Scheds
-app.delete('/deleteSched', function(req,res){
-  
-  var query = {
-    calendarId: req.body.calendarId,
-    email: req.body.email,
-    title: req.body.title,
-    location: req.body.location, 
-    raw: {class: req.body.raw.class},
-    start: req.body.start,
-    end: req.body.end,
-    isAllDay: req.body.isAllDay,
-    state: req.body.state,
-  };
-
-  Schedule.deleteOne(query, function (err, sched) {
-    if (err) throw err
-    console.log(sched);
-    res.status(200).send();
-  });
-
-});
-
-
-//Get calendars
-app.get('/getCalendars', function(req,res){
-  User.findOne({email: req.body.user}, function(err, user){
-    const userId = user._id;
-
-
-  });
-});
-
-//add calendar
-app.post('/addCalendar', async(req, res) =>{
- 
-      var calendar = new Calendar({
-        id: req.body.id,
-        name: req.body.tag,
-        checked: true, 
-        color: req.body.colorpicker,
-        bgColor: req.body.colorpicker,
-        borderColor: req.body.colorpicker,
-        dragBgColor: req.body.colorpicker,
-        user: req.body.user,
-      });
-      
-      try {
-        await calendar.save();
-        res.status(201).send(calendar);
-      } catch (err) {
-        res.status(500).send(err);
-      }
-});
-
-//Load Calendars
-app.get('/loadCalendars/:user', function(req, res) {  
-    Calendar.find({user: req.params.user}).exec(function(err, result) {
-      var calendarObjects = [];
-
-      result.forEach(function(doc) {
-        calendarObjects.push(doc.toObject());
-      });
-      
-      res.json({calendars: calendarObjects });
-    });
-});
   /**
   To be able to render images, css and JavaScript files, it's best to host the static files
   and use the expected path in the data and the imports.

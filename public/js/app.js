@@ -47,7 +47,7 @@ $( document ).ready(function() {
         },
         'beforeCreateSchedule': function(e) {
             console.log('beforeCreateSchedule', e);
-            $.post('/addSched', { 
+            $.post('/schedules/add', { 
                 calendarId: e.calendarId,
                 email: user,
                 title: e.title,
@@ -72,7 +72,7 @@ $( document ).ready(function() {
             {
                 e.changes.end = e.changes.end.toDate();
             }
-            $.post('/updateSched', { 
+            $.post('/schedules/update', { 
                 calendarId: e.schedule.calendarId,
                 title: e.schedule.title,
                 location: e.schedule.location, 
@@ -91,7 +91,7 @@ $( document ).ready(function() {
             console.log('beforeDeleteSchedule', e);
           
             $.ajax({
-                url: '/deleteSched',
+                url: '/schedules/delete',
                 type: 'DELETE',
                 dataType: 'json',
                 data: {
@@ -257,7 +257,7 @@ $( document ).ready(function() {
 
     // set calendars
     function loadCalendars() {
-        $.get( "/loadCalendars/" + user, function( data ) {
+        $.get( "/calendar/" + user, function( data ) {
             var Calendars = data.calendars;
             var calendarList = document.getElementById('calendarList');
             var html = [];
@@ -305,7 +305,7 @@ $( document ).ready(function() {
         var data = $(this).serialize() + '&id=' + (CalendarList.length+1) + '&user=' + user;
         $.ajax({
             type: 'POST',
-            url: '/addCalendar',
+            url: '/calendar/add',
             data: data,
             dataType: 'json',
             success: function(data){
@@ -518,7 +518,7 @@ $( document ).ready(function() {
         cal.clear();
         //generateSchedule(cal.getViewName(), cal.getDateRangeStart(), cal.getDateRangeEnd());
        // cal.createSchedules(ScheduleList);
-       $.get( "/loadScheds", { email: user}, function( data ) {
+       $.get( "/schedules/load", { email: user}, function( data ) {
         savedScheds = data.schedules;
         savedScheds.forEach(element => {
             element.start = Date.parse(element.start);
@@ -556,6 +556,7 @@ $( document ).ready(function() {
     setRenderRangeText();
     setSchedules();
     setEventListener();
+    refreshScheduleVisibility();
 })(window, tui.Calendar);
 
 
