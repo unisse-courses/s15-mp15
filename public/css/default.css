@@ -245,12 +245,66 @@ body {
   text-align: center;
   color: #000;
 }
-
 /** login/register **/
-
-#login .container #login-row #login-column #login-box {
-  margin-top: 100px;
-  max-width: 600px;
-  height: 320px;
+#login-intro{
+  float:left;
+  height:100%;
+  
+  width:50%;
+}
+#login-intro-content{
+  position: relative;
+  top:40%;
+  text-align: right;
+  padding-right: 2.5%;
+}
+#login{
+  text-align: left;
+  float:right;
+  height:100%;
+  width:50%;
 }
 
+#login-row{
+  position: relative;
+  background-color: rgb(200,200,200,.3);
+  top:30%;
+  width:fit-content;
+}
+#header{
+  background-color: #999999;
+  position: top;
+  width: 100%;
+}
+
+#footer{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+div.logo {
+  content:url(../images/header-logo.png);
+  height: 75px;
+}​
+
+
+html {
+  margin: 0px;
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  position:fixed;
+  margin: 0px;
+  height: 100%;
+  width: 100%;
+  background-image:url(../images/index-bg.png);
+  background-size: 100%;
+
+}
+h1, h2{
+  color:white;
+  text-shadow: 2px 2px #666666;
+}
