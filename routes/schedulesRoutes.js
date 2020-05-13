@@ -1,19 +1,20 @@
 const router = require('express').Router();
+const { isPrivate } = require('../middlewares/checkAuth');
 
 //Controller
 const schedulesController = require('../controllers/schedulesController');
 
 
   //add Sched
-  router.post('/add', schedulesController.saveScheds);
+  router.post('/add', isPrivate, schedulesController.saveScheds);
   
   //Load Scheds
-  router.get('/load', schedulesController.loadScheds);
+  router.get('/load', isPrivate, schedulesController.loadScheds);
   
   //update scheds
-  router.post('/update', schedulesController.updateScheds);
+  router.post('/update', isPrivate, schedulesController.updateScheds);
   
   //Delete Scheds
-  router.delete('/delete', schedulesController.deleteScheds);
+  router.delete('/delete', isPrivate, schedulesController.deleteScheds);
   
 module.exports = router;

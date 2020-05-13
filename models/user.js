@@ -8,7 +8,7 @@ const userSchema = mongoose.Schema({
   const User = mongoose.model('User',userSchema);
   
   exports.findUser = function(email, next){
-    User.find(email).exec(function(err, user) {
+    User.find(email, (err, user) => {
         next(err,user);
     });
   }

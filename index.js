@@ -6,6 +6,10 @@ const handlebars = require('handlebars');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const mongodb = require('mongodb');
+const session = require('express-session');
+const flash = require('connect-flash');
+const MongoStore = require('connect-mongo')(session);
+const { isPublic } = require('./middlewares/checkAuth');
 
 //Routers
 const userRouter = require('./routes/userRoutes');
@@ -47,26 +51,6 @@ app.engine( 'hbs', exphbs({
     next();
   });
 
-//Home route (Login Page)
-app.get('/', function(req, res) {
-    // The render function takes the template filename (no extension - that's what the config is for!)
-    // and an object for what's needed in that template
-    res.render('login', {
-      title: 'login',
-    })
-});
-
-//Register Page
-app.get('/register', function(req,res){
-  res.render('register', {
-      title:  'Register',
-  })
-});
-
-app.use('/user', userRouter);
-app.use('/schedules', schedulesRouter);
-app.use('/calendar', calendarRouter);
-
 
   /**
   To be able to render images, css and JavaScript files, it's best to host the static files
@@ -78,8 +62,47 @@ app.use('/calendar', calendarRouter);
 app.use(express.static('public'));
 // app.use(express.static(__dirname + '/public'));
 
+//express session
+app.use(session({
+  secret: 'mamamohakdogbatassaklasrum',
+  store: new MongoStore({ mongooseConnection: mongoose.connection }),
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false, maxAge: 1000 * 60 * 60 * 24 * 7 }
+}));
+
+// Flash
+app.use(flash());
+
+// Global messages vars
+app.use((req, res, next) => {
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  next();
+});
+
 // Listening to the port provided
 app.listen(port, function() {
   console.log('App listening at port '  + port)
 });
 
+
+//Home route (Login Page)
+app.get('/', isPublic, function(req, res) {
+  // The render function takes the template filename (no extension - that's what the config is for!)
+  // and an object for what's needed in that template
+  res.render('login', {
+    title: 'login',
+  })
+});
+
+//Register Page
+app.get('/register', isPublic, function(req,res){
+res.render('register', {
+    title:  'Register',
+})
+});
+
+app.use('/user', userRouter);
+app.use('/schedules', schedulesRouter);
+app.use('/calendar', calendarRouter);
