@@ -1,30 +1,31 @@
 <div id="register">
-        <h3 class="text-center text-white pt-5">Register Form</h3>
+        <h3 class="text-center text-white pt-5" id="shadow">Get started with .doetal</h3>
         <div class="container">
             <div id="register-row" class="row justify-content-center align-items-center">
-                <div id="register-column" class="col-md-6">
+                <div id="register-column" class="col-md-6 custom-background">
                     <div id="register-box" class="col-md-12">
                         <form id="register-form" class="form" action="/user/add" method="post">
-                            <h3 class="text-center text-info">Register</h3>
+                            <h3 class="text-center text-info text-dark">Register</h3>
                             {{> messages}}
                             <div class="form-group">
-                                <label for="username" class="text-info">Enter Email Address:</label><br>
+                                <label for="username" class="text-info text-dark">Enter Email Address:</label><br>
                                 <input type="email" name="username" id="username" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label for="password" class="text-info">Enter Password:</label><br>
+                                <label for="password" class="text-info text-dark">Enter Password:</label><br>
                                 <input type="password" name="password" id="password" class="form-control">
                             </div>
 							<div class="form-group">
-                                <label for="passwordConfirm" class="text-info">Confirm Password:</label><br>
+                                <label for="passwordConfirm" class="text-info text-dark">Confirm Password:</label><br>
                                 <input type="password" name="passwordConfirm" id="passwordConfirm" class="form-control">
                             </div>
-                            <div class="form-group">
-                                <input type="submit" name="submit" class="btn btn-info btn-md" value="Submit">
-                            </div>
                             <div id="register-link" class="form-group">
-                               <a href="/" class="text-info">Already Have an Account?</a> 
+                               <a href="/">Already Have an Account?</a> 
                            </div>
+                            <div class="form-group">
+                                <input type="submit" name="submit" class="btn lnb-new-schedule-btn fullwidth" value="Submit">
+                            </div>
+
                         </form>
                     </div>
                 </div>

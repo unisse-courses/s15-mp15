@@ -63,30 +63,29 @@ body {
   width: 14px;
   height: 14px;
 }
-
 #top {
-  height: 49px;
   border-bottom: 1px solid #bbb;
   padding: 10px;
   font-family: 'Noto Sans', sans-serif;
   color: '#333';
-  font-size: 25px;
+  font-size: 20px;
+  background-color: #e3e6ea;
 }
 
 #lnb {
-  position: absolute;
   width: 200px;
-  top: 49px;
-  bottom: 0;
+  position: absolute;
+  top: 136px;
+  bottom: 35px;
   border-right: 1px solid #d5d5d5;
   padding: 12px 10px;
   background: #fafafa;
 }
 
 #right {
-  position: absolute;
+  position: fixed;
   left: 200px;
-  top: 49px;
+  top: 136px;
   right: 0;
   bottom: 0;
 }
@@ -104,8 +103,8 @@ body {
 .lnb-new-schedule-btn {
   height: 100%;
   font-size: 14px;
-  background-color: #FF4848;
-  color: #ffffff;
+  background-color: #404c58;
+  color: #fffafa;
   border: 0;
   border-radius: 25px;
   padding: 10px 20px;
@@ -115,8 +114,8 @@ body {
 .lnb-new-schedule-btn:hover {
   height: 100%;
   font-size: 14px;
-  background-color: #67CCBB;
-  color: #ffffff;
+  background-color: #adb6c1;
+  color: #fffafa;
   border: 0;
   border-radius: 25px;
   padding: 10px 20px;
@@ -126,8 +125,8 @@ body {
 .lnb-new-schedule-btn:active {
   height: 100%;
   font-size: 14px;
-  background-color: #d95614;
-  color: #ffffff;
+  background-color: #404c58;
+  color: #fffafa;
   border: 0;
   border-radius: 25px;
   padding: 10px 20px;
@@ -220,8 +219,8 @@ body {
     position: absolute;
     left: 0;
     right: 0;
-    bottom: 5px;
-    top: 64px;
+    bottom: 35px;
+    top: 60px;
 }
 
 /** custom fontawesome */
@@ -246,10 +245,92 @@ body {
 }
 
 /** login/register **/
+div.logo {
+  content:url();
+  height: 50px;  
+}​
 
-#login .container #login-row #login-column #login-box {
-  margin-top: 100px;
-  max-width: 600px;
-  height: 320px;
+div.header{
+  background-color: black;
+  width: 1px;
 }
 
+#header{
+  background-color: black;
+  position: top;
+  width: 100px;
+}
+
+
+#footer{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  color: #FFFAFA;
+  background-color: 4d5c6c;
+  text-align: right;
+  padding-right: 10px;
+  padding-bottom: 10px;
+}
+
+html {
+  margin: 0px;
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  position:fixed;
+  margin: 0px;
+  height: 100%;
+  width: 100%;
+  background-image:url(../images/index-bg.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+
+}
+
+#shadow{
+  text-shadow: 1.5px 1.5px #4d5c6c7f; /*last 2 digits are for opacity*/
+}
+
+.login-align{
+  margin-top:10%;
+}
+
+.custom-header{
+  background-color: #4d5c6c ;
+  padding-top:0;
+  padding-bottom:0;
+}
+
+.custom-background{
+  background-color: #FFFAFA;
+  border-radius: 50px;
+  box-shadow: #4d5c6c;
+  padding:2%;
+}
+
+.fullwidth{
+  width:100%;
+}
+
+a:link{
+  color: #939fad;
+}
+
+a:visited{
+  color: #939fad;
+}
+
+a:hover{
+  color: #4d5c6c;
+}
+
+a:click{
+  color: #a8b4c1;
+}
+
+.custom-margin-login{
+  padding-top:10%;
+}

@@ -1,7 +1,7 @@
  <div id="top">   
-     <span> User: </span>   
+     <span class="ml-5"> User: </span>   
      <span id="email">{{email}}</span>
-     <span id="logout-button">  <a href="/user/logout" class="btn btn-info btn-sm" role="button">logout</a> </span>
+     <span id="logout-button">  <a href="/user/logout" class="float-right mr-2 btn btn-info btn-light btn-sm" role="button">Log out</a> </span>
 </div>
 
 
@@ -11,7 +11,7 @@
                 New schedule</button>
         </div>
         <div id="lnb-calendars" class="lnb-calendars">
-            <button type="button" id="calendarpop" class="btn btn-sm btn-success" data-toggle="popover">Add calendar</button>
+            <button type="button" id="calendarpop" class="mt-3 btn lnb-new-schedule-btn btn-block" data-toggle="popover">Add calendar</button>
             <div class="lnb-calendars-item">
                 <label>
                     <input class="tui-full-calendar-checkbox-square" type="checkbox" value="all" checked="">
@@ -45,7 +45,7 @@
     <div id="right">
         <div id="menu">
             <span class="dropdown">
-                <button id="dropdownMenu-calendarType" class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown"
+                <button id="dropdownMenu-calendarType" class="btn btn-default btn-light btn-sm" type="button" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="true">
                     <i id="calendarTypeIcon" class="calendar-icon ic_view_month" style="margin-right: 4px;"></i>
                     <span id="calendarTypeName">Dropdown</span>&nbsp;
@@ -67,10 +67,10 @@
             </span>
 
             <span id="menu-navi">
-                <button type="button" class="btn btn-default btn-sm move-day" data-action="move-prev">
+                <button type="button" class="btn btn-default btn-sm move-day btn-light" data-action="move-prev">
                     <i class="calendar-icon ic-arrow-line-left" data-action="move-prev"></i>
                 </button>
-                <button type="button" class="btn btn-default btn-sm move-day" data-action="move-next">
+                <button type="button" class="btn btn-default btn-sm move-day btn-light" data-action="move-next">
                     <i class="calendar-icon ic-arrow-line-right" data-action="move-next"></i>
                 </button>
             </span>
