@@ -284,7 +284,7 @@ body {
   margin: 0px;
   height: 100%;
   width: 100%;
-  background-image:url(../images/index-bg.png);
+  background-image:url(../images/index-bg.jpg);
   background-size: cover;
   background-repeat: no-repeat;
 
@@ -334,3 +334,6 @@ a:click{
 .custom-margin-login{
   padding-top:10%;
 }
+
+
+/*hello*/
