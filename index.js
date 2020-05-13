@@ -10,6 +10,7 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const MongoStore = require('connect-mongo')(session);
 const { isPublic } = require('./middlewares/checkAuth');
+const { envPort, dbURL, sessionKey} = require('./config');
 
 //Routers
 const userRouter = require('./routes/userRoutes');
@@ -19,15 +20,15 @@ const calendarRouter = require('./routes/calendarRoutes');
 
 // Creates the express application
 const app = express();
-const port = 9090;
+const port = envPort || 9090;
 
 //database connection constants
-const databaseURL = "mongodb://G15:1234@calendar-shard-00-00-xd9qk.gcp.mongodb.net:27017,calendar-shard-00-01-xd9qk.gcp.mongodb.net:27017,calendar-shard-00-02-xd9qk.gcp.mongodb.net:27017/test?ssl=true&replicaSet=Calendar-shard-0&authSource=admin&retryWrites=true&w=majority";
+//const databaseURL = "mongodb://G15:1234@calendar-shard-00-00-xd9qk.gcp.mongodb.net:27017,calendar-shard-00-01-xd9qk.gcp.mongodb.net:27017,calendar-shard-00-02-xd9qk.gcp.mongodb.net:27017/test?ssl=true&replicaSet=Calendar-shard-0&authSource=admin&retryWrites=true&w=majority";
 const options = { useNewUrlParser: true,
   useCreateIndex: true,
   useUnifiedTopology: true,
   useFindAndModify: false };
-mongoose.connect(databaseURL, options);
+mongoose.connect(dbURL, options);
 
 /**
   Creates an engine called "hbs" using the express-handlebars package.
@@ -64,7 +65,7 @@ app.use(express.static('public'));
 
 //express session
 app.use(session({
-  secret: 'mamamohakdogbatassaklasrum',
+  secret: sessionKey,
   store: new MongoStore({ mongooseConnection: mongoose.connection }),
   resave: false,
   saveUninitialized: true,
