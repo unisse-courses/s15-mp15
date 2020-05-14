@@ -291,6 +291,7 @@ $( document ).ready(function() {
                     CalendarList.push(calendar);
             });
             calendarList.innerHTML = html.join('\n');
+            setSchedules();
          });
     }
 
@@ -574,7 +575,6 @@ $( document ).ready(function() {
 
     setDropdownCalendarType();
     setRenderRangeText();
-    setSchedules();
     setEventListener();
     refreshScheduleVisibility();
 })(window, tui.Calendar);
