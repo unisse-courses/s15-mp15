@@ -121,7 +121,7 @@ That's it! You now have a fully deployed application on Heroku!
 * [mongodb - Atlas](https://www.mongodb.com/) - Cloud-hosted MongoDB service
 * [Heroku](https://dashboard.heroku.com/) - Cloud platform used in running our app
 * [PurpleBooth's README Template](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2) - Templated used in creating this README file
-* [GitHub](https://github.com/) - Used in collaborating, passing requirements for the project
+* [GitHub](https://github.com/) - File repository for collaboration
 
 ## Team Members:
 
