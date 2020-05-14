@@ -14,24 +14,26 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
-```
-node.js
-heroku (for deployment)
-```
+* [NodeJS & npm](https://www.npmjs.com/get-npm)
+* [MongoDB Community Edition](https://docs.mongodb.com/manual/administration/install-community/)
+* Any text editor for JavaScript, HTML & CSS (VSCode, Atom, SublimeText, etc.)
 
-### Installing
+## MongoDB Installation
+1. Download MongoDB Community Server from [here](https://www.mongodb.com/download-center/community).
+2. Follow the instructions for your operating system from [this guide](https://docs.mongodb.com/manual/administration/install-community/).
+3. You can also follow along this [YouTube Video by Traversy Media](https://youtu.be/-56x56UppqQ) for installing and using mongo `shell` & MongoDB Compass (similar to MySQL Workbench).
+4. Make sure that mongodb is running as a service in the background. Otherwise, this will not work.
 
-Here are the step by step procedures when installing after pulling the repository
+## Local Setup
+1. Clone this repository: `git clone https://github.com/unisse-courses/node-mongodb-sample.git`
+2. Navigate to the directory: `cd node-mongodb-sample`
+3. Install the dependencies: `npm install`
+    * I've already installed mongodb so it's in the `package.json` file already.
+4. Run the server: `node index.js`
+    * Navigate to `http://localhost:9090/` in the browser to view the app.
 
-First, we install node.js to the repository
-```
-npm install
-```
-Then we run to test via localhost
-```
-npm run dev
-```
+The landing page should look like this:
+![alt text](screens/expected-home.png "Expected Landing Page")
 
 ## (?)Running the tests
 
@@ -54,6 +56,14 @@ Give an example
 ```
 
 ## Deployment
+
+### Prerequisites
+
+What things you need to install the software and how to install them
+```
+MongoDB Atlas (Database)
+Heroku (Deployment)
+```
 
 to deploy this using heroku, follow these steps (make sure that you have pushed your repository to GitHub)
 ```
