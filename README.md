@@ -4,6 +4,12 @@ This repository consists of the files necessary in running a Calendar Based Plan
 
 ## Getting Started
 
+Visit our website here (running on heroku)
+
+```
+https://doetal-app.herokuapp.com/
+```
+
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
 ### Prerequisites
@@ -67,7 +73,9 @@ git push heroku master
 
 * [Toast UI](https://ui.toast.com/tui-calendar/) - The calendar ui plugin used in the app
 * [Boostrap](https://getbootstrap.com/) - For free CSS classes
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+* [mongoose](https://mongoosejs.com/) - Object modeling used for node.js
+* [mongoose](https://mongoosejs.com/) - Object modeling used for node.js
+
 
 ## Contributing
 
