@@ -322,6 +322,7 @@ $( document ).ready(function() {
     //add calendar
     $(document).on('submit','#colorForm', function(event){ 
         event.preventDefault();
+        $(this).find(':input[type=submit]').prop('disabled', true);
         var data = $(this).serialize() + '&id=' + (CalendarList.length+1);
         $.ajax({
             type: 'POST',
@@ -330,10 +331,12 @@ $( document ).ready(function() {
             dataType: 'json',
             success: function(data){
                 loadCalendars();  
-                alert("Add Calendar Success");            
+                alert("Add Calendar Success");      
             },
             error: function(data){
-                console.log("error");
+                if(data.responseJSON.count>10)
+                alert("Max Calendars Reached");
+               else
                 alert("Add Calendar Failed");
             },
         });

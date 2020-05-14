@@ -3,6 +3,8 @@ const Calendar = require('../models/calendar');
 
 exports.addCal = async(req, res)=>{
    
+  if(req.body.id <=15)
+  {
     var calendar = ({
       id: req.body.id,
       name: req.body.tag,
@@ -18,7 +20,11 @@ exports.addCal = async(req, res)=>{
       await Calendar.save(calendar);
       res.status(201).send(calendar);
     } catch (err) {
-      res.status(500).send(err);
+      res.status(500).send({status: false, count: 0});
+    }
+    }
+    else{
+      res.status(500).send({status: false, count: 11});
     }
 };
 
