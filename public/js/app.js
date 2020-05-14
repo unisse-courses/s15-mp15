@@ -58,7 +58,7 @@ $( document ).ready(function() {
             }).success(function(data){
                 setSchedules();
                 refreshScheduleVisibility();
-                alert( "Schedule Saved! Reloading Data..."); });
+                alert( "Schedule Saved! Reloading Data...")});
         },
         'beforeUpdateSchedule': function(e) {
             var schedule = e.schedule;
@@ -85,7 +85,7 @@ $( document ).ready(function() {
             }).success(function(data){
                 setSchedules();
                 refreshScheduleVisibility();
-                alert("Schedule Updated! Reloading Data..."); });
+                alert("Schedule Updated! Reloading Data...")});
         },
         'beforeDeleteSchedule': function(e) {
             console.log('beforeDeleteSchedule', e);
@@ -107,7 +107,7 @@ $( document ).ready(function() {
                 success: function(response) {
                     setSchedules();
                     refreshScheduleVisibility();
-                    alert("Schedule Deleted! Reloading Data...");
+                    alert( "Schedule Deleted! Reloading Data...");
                 },
                 error: function(response) {
                     console.log(response);
