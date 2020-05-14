@@ -18,7 +18,6 @@ What things you need to install the software and how to install them
 ```
 node.js
 heroku (for deployment)
-mongoose (for the database)
 ```
 
 ### Installing
@@ -46,9 +45,9 @@ npm run dev
 Give an example
 ```
 
-### And coding style tests
+### (?)And coding style tests
 
-Explain what these tests test and why
+(?)Explain what these tests test and why
 
 ```
 Give an example
@@ -68,21 +67,24 @@ push the repository
 ```
 git push heroku master
 ```
+you'll be given a link after having your "push" compiled
 
 ## Built With
 
 * [Toast UI](https://ui.toast.com/tui-calendar/) - The calendar ui plugin used in the app
 * [Boostrap](https://getbootstrap.com/) - For free CSS classes
 * [mongoose](https://mongoosejs.com/) - Object modeling used for node.js
-* [mongoose](https://mongoosejs.com/) - Object modeling used for node.js
+* [mongodb - Atlas](https://www.mongodb.com/) - Cloud-hosted MongoDB service
+* [Heroku](https://dashboard.heroku.com/) - Cloud platform used in running our app
+* [PurpleBooth's README Template](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2) - Templated used in creating this README file
+* [GitHub](https://github.com/) - Used in collaborating, passing requirements for the project
+
+## (?)Contributing
 
 
-## Contributing
+## (?)Versioning
 
-
-## Versioning
-
-
+(?)You can follow the versioning of the file with the number of commits made on the GitHub repository
 
 ## Team Members:
 
