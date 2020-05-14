@@ -55,7 +55,7 @@ $( document ).ready(function() {
                 end: e.end.toDate(),
                 isAllDay: e.isAllDay,
                 state: e.state,
-            }).success(function(data){
+            }).done(function(data){
                 setSchedules();
                 refreshScheduleVisibility();
                 alert( "Schedule Saved! Reloading Data...")});
@@ -82,7 +82,7 @@ $( document ).ready(function() {
                 isAllDay: e.schedule.isAllDay,
                 state: e.schedule.state,
                 new: e.changes,
-            }).success(function(data){
+            }).done(function(data){
                 setSchedules();
                 refreshScheduleVisibility();
                 alert("Schedule Updated! Reloading Data...")});
