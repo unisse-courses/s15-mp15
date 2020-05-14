@@ -3,9 +3,9 @@
 This repository consists of the files necessary in running 'doetal" a Calendar Based Planner.
 
 Features:
-Create Calendars with customized names and colors.
-Create, Update, and Delete Plans/Schedules.
-Daily and Monthly View.
+* Create Calendars with customized names and colors.
+* Create, Update, and Delete Plans/Schedules.
+* Daily and Monthly View.
 
 Visit https://doetal-app.herokuapp.com/ for a working version of the web app.
 
