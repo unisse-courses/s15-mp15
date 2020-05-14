@@ -58,7 +58,7 @@ $( document ).ready(function() {
             }, function(result){
                 if(result.success)
                 {
-                    alert(result.message + "Please wait while calendar reloads data...");
+                    alert(result.message + " Please wait while calendar reloads data...");
                     setSchedules();
                     refreshScheduleVisibility();
                 }
@@ -94,7 +94,7 @@ $( document ).ready(function() {
             }, function(result){
                 if(result.success)
                 {
-                    alert(result.message + "Please wait while calendar reloads data...");
+                    alert(result.message + " Please wait while calendar reloads data...");
                     setSchedules();
                     refreshScheduleVisibility();
                 }
@@ -124,7 +124,7 @@ $( document ).ready(function() {
                 success: function(result) {
                 if(result.success)
                 {
-                    alert(result.message + "Please wait while calendar reloads data...");
+                    alert(result.message + " Please wait while calendar reloads data...");
                     setSchedules();
                     refreshScheduleVisibility();
                 }
@@ -328,15 +328,16 @@ $( document ).ready(function() {
             data: data,
             dataType: 'json',
             success: function(data){
-                loadCalendars();
-                $('#calendarpop').popover('hide');
-                $('#colorForm').trigger("reset");
-                
+                loadCalendars();  
+                alert("Add Calendar Success");            
             },
             error: function(data){
                 console.log("error");
+                alert("Add Calendar Failed");
             },
         });
+        $('#calendarpop').popover('hide');
+        $('#colorForm').trigger("reset");
     });
    
 
