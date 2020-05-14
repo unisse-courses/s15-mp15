@@ -15,25 +15,41 @@ These instructions will get you a copy of the project up and running on your loc
 ### Prerequisites
 
 * [NodeJS & npm](https://www.npmjs.com/get-npm)
-* [MongoDB Community Edition](https://docs.mongodb.com/manual/administration/install-community/)
+* [MongoDB Community Edition](https://docs.mongodb.com/manual/administration/install-community/) or [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) Cluster
 * Any text editor for JavaScript, HTML & CSS (VSCode, Atom, SublimeText, etc.)
 
-## MongoDB Installation
-1. Download MongoDB Community Server from [here](https://www.mongodb.com/download-center/community).
-2. Follow the instructions for your operating system from [this guide](https://docs.mongodb.com/manual/administration/install-community/).
-3. You can also follow along this [YouTube Video by Traversy Media](https://youtu.be/-56x56UppqQ) for installing and using mongo `shell` & MongoDB Compass (similar to MySQL Workbench).
-4. Make sure that mongodb is running as a service in the background. Otherwise, this will not work.
-
 ## Local Setup
-1. Clone this repository: `git clone https://github.com/unisse-courses/node-mongodb-sample.git`
-2. Navigate to the directory: `cd node-mongodb-sample`
-3. Install the dependencies: `npm install`
-    * I've already installed mongodb so it's in the `package.json` file already.
-4. Run the server: `node index.js`
-    * Navigate to `http://localhost:9090/` in the browser to view the app.
+1. Fork this repository to create a copy on your GitHub account.
+2. Clone the forked repository to your machine.
+  ```shell
+  git clone https://github.com/YOUR_USERNAME/s15-mp15.git
+  ```
+3. Navigate to the directory.
+  ```shell
+  cd s15-mp15
+  ```
+  
+4. Create a new file `.env`. In this file, set the port, the MongoDB connection URL and the value of `secret` in the `express-session`
 
-The landing page should look like this:
-![alt text](screens/expected-home.png "Expected Landing Page")
+```dotenv
+PORT= 3000
+MONGODB_URL=""
+SESSION_SECRET=""
+```
+
+5. Install the dependencies in package.json. All needed packages are already included.
+  ```shell
+  npm install
+  ```
+6. Run the server using the script defined (using `nodemon`)
+  ```shell
+  npm run dev
+  
+6. Navigate to [http://localhost:3000/](http://localhost:3000/). You should see the login page.
+  ![alt text](screens/registration-screen.png "Registration page")
+
+
+To stop the server, simply key in CTRL+C (Windows) or control (^) + C (Mac).
 
 ## (?)Running the tests
 
@@ -65,19 +81,60 @@ MongoDB Atlas (Database)
 Heroku (Deployment)
 ```
 
-to deploy this using heroku, follow these steps (make sure that you have pushed your repository to GitHub)
-```
+Use the `heroku login` command to login to your Heroku account. It will open up the browser for login.
+```shell
 heroku login
 ```
-replace </ name of app >/ with any name
+
+Since our application is already connected to a `git` repository, we can now directly create the Heroku app.
+```shell
+$ heroku create app-name
+Creating app... done, ⬢ protected-sea-52141
+https://protected-sea-52141.herokuapp.com/ | https://git.heroku.com/protected-sea-52141.git
 ```
-heroku git:remote -a < name of app >-app
+Go to your [Heroku Dashboard](https://dashboard.heroku.com/apps) to see the created app.
+
+When you create an app, a git remote (called `heroku`) is also created and associated with your local git repository. Before pushing any changes to the `heroku` remote branch, make sure all changes are commited first.
+```shell
+git add .
+git commit -m 'Update code for deployment'
 ```
-push the repository
-```
+
+To deploy the application, simply push the code to the `heroku` branch:
+```shell
 git push heroku master
 ```
-you'll be given a link after having your "push" compiled
+
+To know that it was completely deployed, you should see at the end of the build:
+```
+...
+remote: Verifying deploy... done.
+To https://git.heroku.com/protected-sea-52141.git
+ * [new branch]      master -> master
+```
+
+According to the [Heroku Guide](https://devcenter.heroku.com/articles/getting-started-with-nodejs?singlepage=true#deploy-the-app), to ensure that at least one instance is running, execute this command:
+```shell
+heroku ps:scale web=1
+```
+
+Go to the app's **`Settings`** tab from the [Heroku Dashboard](https://dashboard.heroku.com/apps and click the "Reveal Config Vars" button.
+
+Use the `.env` file created previously to create the config vars. No need for the quotes, just paste the values and make sure to click **Add**.
+
+
+To access the app and get the URL of your application, run:
+```shell
+heroku open
+```
+
+You can also test if the code works locally, by running:
+```shell
+heroku local web
+```
+This will simply get the values from the local `.env` file and whatever's in the current repository. To ensure that changes get deployed, do not forget to **COMMIT** the changes to the code.
+
+That's it! You now have a fully deployed application on Heroku!
 
 ## Built With
 
