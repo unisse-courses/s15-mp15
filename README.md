@@ -124,6 +124,6 @@ That's it! You now have a fully deployed application on Heroku!
 
 ## Acknowledgments
 
-* Ms. [Unisse Chua](https://ph.linkedin.com/in/unissechua) for giving us the opportunity and lessons to create our project
+* Ms. [Unisse Chua](https://unissechua.github.io/) for giving us the opportunity and lessons to create our project
 * Our friends and family
 
