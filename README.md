@@ -3,7 +3,7 @@
 This repository consists of the files necessary in running 'doetal" a Calendar Based Planner.
 
 Features:
-* Create Calendars with customized names and colors.
+* Create up to 15 Calendars with customized names and colors.
 * Create, Update, and Delete Plans/Schedules.
 * Daily and Monthly View.
 
