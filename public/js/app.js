@@ -55,9 +55,10 @@ $( document ).ready(function() {
                 end: e.end.toDate(),
                 isAllDay: e.isAllDay,
                 state: e.state,
-            });
-            setSchedules();
-            refreshScheduleVisibility();
+            }).success(function(data){
+                setSchedules();
+                refreshScheduleVisibility();
+                alert( "Schedule Saved! Reloading Data...")});
         },
         'beforeUpdateSchedule': function(e) {
             var schedule = e.schedule;
@@ -81,9 +82,10 @@ $( document ).ready(function() {
                 isAllDay: e.schedule.isAllDay,
                 state: e.schedule.state,
                 new: e.changes,
-            });
-            setSchedules();
-            refreshScheduleVisibility();
+            }).success(function(data){
+                setSchedules();
+                refreshScheduleVisibility();
+                alert("Schedule Updated! Reloading Data...")});
         },
         'beforeDeleteSchedule': function(e) {
             console.log('beforeDeleteSchedule', e);
@@ -103,15 +105,14 @@ $( document ).ready(function() {
                     state: e.schedule.state,
                 },
                 success: function(response) {
-                    console.log(response);
+                    setSchedules();
+                    refreshScheduleVisibility();
+                    alert( "Schedule Deleted! Reloading Data...");
                 },
                 error: function(response) {
                     console.log(response);
                 }
             });
-
-            setSchedules();
-            refreshScheduleVisibility();
         },
         'afterRenderSchedule': function(e) {
             var schedule = e.schedule;
