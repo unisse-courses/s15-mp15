@@ -4,31 +4,22 @@ const path = require('path');
 const exphbs = require('express-handlebars');
 const handlebars = require('handlebars');
 const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
+const mongoose = require('./models/connection');
 const mongodb = require('mongodb');
 const session = require('express-session');
 const flash = require('connect-flash');
 const MongoStore = require('connect-mongo')(session);
-const { isPublic } = require('./middlewares/checkAuth');
-const { envPort, dbURL, sessionKey} = require('./config');
+const { envPort, sessionKey} = require('./config');
 
 //Routers
 const userRouter = require('./routes/userRoutes');
 const schedulesRouter = require('./routes/schedulesRoutes');
 const calendarRouter = require('./routes/calendarRoutes');
-
+const indexRouter = require('./routes/indexRoutes');
 
 // Creates the express application
 const app = express();
 const port = envPort || 9090;
-
-//database connection constants
-//const databaseURL = "mongodb://G15:1234@calendar-shard-00-00-xd9qk.gcp.mongodb.net:27017,calendar-shard-00-01-xd9qk.gcp.mongodb.net:27017,calendar-shard-00-02-xd9qk.gcp.mongodb.net:27017/test?ssl=true&replicaSet=Calendar-shard-0&authSource=admin&retryWrites=true&w=majority";
-const options = { useNewUrlParser: true,
-  useCreateIndex: true,
-  useUnifiedTopology: true,
-  useFindAndModify: false };
-mongoose.connect(dbURL, options);
 
 /**
   Creates an engine called "hbs" using the express-handlebars package.
@@ -88,22 +79,8 @@ app.listen(port, function() {
 });
 
 
-//Home route (Login Page)
-app.get('/', isPublic, function(req, res) {
-  // The render function takes the template filename (no extension - that's what the config is for!)
-  // and an object for what's needed in that template
-  res.render('login', {
-    title: 'doetal Login',
-  })
-});
 
-//Register Page
-app.get('/register', isPublic, function(req,res){
-res.render('register', {
-    title:  'doetal Register',
-})
-});
-
+app.use('/', indexRouter);
 app.use('/user', userRouter);
 app.use('/schedules', schedulesRouter);
 app.use('/calendar', calendarRouter);

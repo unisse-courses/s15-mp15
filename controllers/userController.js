@@ -66,9 +66,8 @@ exports.loadUserCal = function(req,res){
     
       bcrypt.hash(req.body.password, 10, (err, hash) => {
         if(err){
-          return res.status(500).json({
-              error: err
-          });
+          req.flash('error_msg', 'Something happened! Please try again.');
+          res.redirect('/register');
         } 
         else{
             var user = ({
@@ -78,9 +77,8 @@ exports.loadUserCal = function(req,res){
     
             User.reg(user, function(err, result){
                     if(err){
-                        res.status(500).json({
-                            error: err
-                        });
+                      req.flash('error_msg', 'Email is already Registered/Server Error. Please Try Again!');
+                      res.redirect('/register');
                     }
                     else
                     {
