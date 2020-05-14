@@ -7,11 +7,11 @@ exports.addCal = async(req, res)=>{
       id: req.body.id,
       name: req.body.tag,
       checked: true, 
-      color: req.body.colorpicker,
+      color: req.body.textcolorpicker,
       bgColor: req.body.colorpicker,
       borderColor: req.body.colorpicker,
       dragBgColor: req.body.colorpicker,
-      user: req.body.user,
+      user:  req.session.email,
     });
     
     try {
@@ -23,7 +23,7 @@ exports.addCal = async(req, res)=>{
 };
 
 exports.getAll = function(req, res) {  
-    Calendar.getAllCal({user: req.params.user}, function(calendarObjects){
+    Calendar.getAllCal({user:  req.session.email}, function(calendarObjects){
         res.json({calendars: calendarObjects });
     });
 };

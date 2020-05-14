@@ -1,5 +1,7 @@
 //Model
 const User = require('../models/user');
+const Calendar = require('../models/calendar');
+
 //Security
 const bcrypt = require('bcryptjs');
 const { validationResult } = require('express-validator');
@@ -30,8 +32,7 @@ exports.loadUserCal = function(req,res){
                     console.log(req.session);
     
                     return res.status(200).render('calendar', {
-                      title:  'My Calendar',
-                      email: user[0].email,
+                      title:  'doetal',
                   })
                 }
                 else{
@@ -84,7 +85,23 @@ exports.loadUserCal = function(req,res){
                     else
                     {
                         console.log(result);
-                        res.status(201).redirect('/');
+                        var calendar = ({
+                          id: 1,
+                          name: 'My Calendar',
+                          checked: true, 
+                          color: '#ffffff',
+                          bgColor: '#4d5c6c',
+                          borderColor:'#4d5c6c',
+                          dragBgColor: '#4d5c6c',
+                          user:  req.body.username,
+                        });
+                        
+                        try {
+                          Calendar.save(calendar);
+                          res.status(201).redirect('/');
+                        } catch (err) {
+                          res.status(500).send(err);
+                        }
                     }
             });
            }

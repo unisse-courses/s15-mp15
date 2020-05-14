@@ -93,14 +93,14 @@ app.get('/', isPublic, function(req, res) {
   // The render function takes the template filename (no extension - that's what the config is for!)
   // and an object for what's needed in that template
   res.render('login', {
-    title: 'login',
+    title: 'doetal Login',
   })
 });
 
 //Register Page
 app.get('/register', isPublic, function(req,res){
 res.render('register', {
-    title:  'Register',
+    title:  'doetal Register',
 })
 });
 

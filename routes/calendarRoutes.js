@@ -8,6 +8,6 @@ const calendarController = require('../controllers/calendarController');
   router.post('/add', isPrivate, calendarController.addCal);
   
   //Load Calendars
-  router.get('/:user', isPrivate, calendarController.getAll);
+  router.get('/load', isPrivate, calendarController.getAll);
 
   module.exports = router;

@@ -4,7 +4,7 @@ const Schedule = require('../models/schedules');
 exports.saveScheds = function(req, res) {
     var schedule = ({
         calendarId: req.body.calendarId,
-        email: req.body.email,
+        email:  req.session.email,
         title: req.body.title,
         location: req.body.location, 
         raw: {class: req.body.raw.class},
@@ -29,7 +29,7 @@ exports.saveScheds = function(req, res) {
 };
 
 exports.loadScheds = function(req, res) {
-    Schedule.load({email: req.query.email}, function(scheduleObjects){
+    Schedule.load({email: req.session.email}, function(scheduleObjects){
         res.json({schedules: scheduleObjects });
     });
 };
@@ -37,7 +37,7 @@ exports.loadScheds = function(req, res) {
 exports.updateScheds = function(req, res) {
     var query = {
         calendarId: req.body.calendarId,
-        email: req.body.email,
+        email:  req.session.email,
         title: req.body.title,
         location: req.body.location, 
         raw: {class: req.body.raw.class},
@@ -62,7 +62,7 @@ exports.updateScheds = function(req, res) {
 exports.deleteScheds = function(req,res){
     var query = {
         calendarId: req.body.calendarId,
-        email: req.body.email,
+        email:  req.session.email,
         title: req.body.title,
         location: req.body.location, 
         raw: {class: req.body.raw.class},

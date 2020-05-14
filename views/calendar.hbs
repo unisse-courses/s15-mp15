@@ -1,11 +1,4 @@
- <div id="top">   
-     <span class="ml-5"> User: </span>   
-     <span id="email">{{email}}</span>
-     <span id="logout-button">  <a href="/user/logout" class="float-right mr-2 btn btn-info btn-light btn-sm" role="button">Log out</a> </span>
-</div>
-
-
-<div id="lnb">
+ <div id="lnb">
         <div class="lnb-new-schedule">
             <button id="btn-new-schedule" type="button" class="btn btn-default btn-block lnb-new-schedule-btn" data-toggle="modal">
                 New schedule</button>
@@ -28,6 +21,10 @@
         <div class="form-group"> 
             <label for="colorpicker" class="text-info">Color:</label><br>
             <input type="color" name="colorpicker" class="form-control" value="">
+        </div>
+         <div class="form-group"> 
+            <label for="textcolorpicker" class="text-info">Text Color:</label><br>
+            <input type="color" name="textcolorpicker" class="form-control" value="">
         </div>
         <div class="form-group">
             <br><label for="tag" class="text-info">Tag:</label><br>
@@ -74,6 +71,8 @@
                     <i class="calendar-icon ic-arrow-line-right" data-action="move-next"></i>
                 </button>
             </span>
+
+            <span id="logout-button">  <a href="/user/logout" class="float-right mr-2 btn btn-info btn-light btn-sm" role="button">Log out</a> </span>
             
             <span id="renderRange" class="render-range"></span>
         </div>

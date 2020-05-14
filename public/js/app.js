@@ -13,7 +13,6 @@ $( document ).ready(function() {
     var datePicker, selectedCalendar;
     var savedScheds = [];
     var CalendarList = [];
-    var user = document.getElementById('email').innerHTML;
     
     loadCalendars();
     cal = new Calendar('#calendar', {
@@ -49,7 +48,6 @@ $( document ).ready(function() {
             console.log('beforeCreateSchedule', e);
             $.post('/schedules/add', { 
                 calendarId: e.calendarId,
-                email: user,
                 title: e.title,
                 location: e.location, 
                 raw: {class: e.raw.class},
@@ -82,7 +80,6 @@ $( document ).ready(function() {
                 isAllDay: e.schedule.isAllDay,
                 state: e.schedule.state,
                 new: e.changes,
-                email: user
             });
             cal.updateSchedule(schedule.id, schedule.calendarId, changes);
             refreshScheduleVisibility();
@@ -103,7 +100,6 @@ $( document ).ready(function() {
                     end: e.schedule.end.toDate(),
                     isAllDay: e.schedule.isAllDay,
                     state: e.schedule.state,
-                    email: user
                 },
                 success: function(response) {
                     console.log(response);
@@ -231,7 +227,6 @@ $( document ).ready(function() {
 
         setDropdownCalendarType();
         setRenderRangeText();
-        setSchedules();
     }
 
     function onClickNavi(e) {
@@ -252,12 +247,11 @@ $( document ).ready(function() {
         }
 
         setRenderRangeText();
-        setSchedules();
     }
 
     // set calendars
     function loadCalendars() {
-        $.get( "/calendar/" + user, function( data ) {
+        $.get( "/calendar/load", function( data ) {
             var Calendars = data.calendars;
             var calendarList = document.getElementById('calendarList');
             var html = [];
@@ -302,7 +296,7 @@ $( document ).ready(function() {
     //add calendar
     $(document).on('submit','#colorForm', function(event){ 
         event.preventDefault();
-        var data = $(this).serialize() + '&id=' + (CalendarList.length+1) + '&user=' + user;
+        var data = $(this).serialize() + '&id=' + (CalendarList.length+1);
         $.ajax({
             type: 'POST',
             url: '/calendar/add',
@@ -518,7 +512,7 @@ $( document ).ready(function() {
         cal.clear();
         //generateSchedule(cal.getViewName(), cal.getDateRangeStart(), cal.getDateRangeEnd());
        // cal.createSchedules(ScheduleList);
-       $.get( "/schedules/load", { email: user}, function( data ) {
+       $.get( "/schedules/load", function( data ) {
         savedScheds = data.schedules;
         savedScheds.forEach(element => {
             element.start = Date.parse(element.start);
