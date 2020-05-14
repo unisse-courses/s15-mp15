@@ -55,9 +55,19 @@ $( document ).ready(function() {
                 end: e.end.toDate(),
                 isAllDay: e.isAllDay,
                 state: e.state,
-            });
-            setSchedules();
-            refreshScheduleVisibility();
+            }, function(result){
+                if(result.success)
+                {
+                    alert(result.message + "Please wait while calendar reloads data...");
+                    setSchedules();
+                    refreshScheduleVisibility();
+                }
+                else
+                {
+                    alert(result.message);
+                }
+              });
+           
         },
         'beforeUpdateSchedule': function(e) {
             var schedule = e.schedule;
@@ -81,10 +91,18 @@ $( document ).ready(function() {
                 isAllDay: e.schedule.isAllDay,
                 state: e.schedule.state,
                 new: e.changes,
-            });
-            
-            setSchedules();
-            refreshScheduleVisibility();
+            }, function(result){
+                if(result.success)
+                {
+                    alert(result.message + "Please wait while calendar reloads data...");
+                    setSchedules();
+                    refreshScheduleVisibility();
+                }
+                else
+                {
+                    alert(result.message);
+                }
+              });
         },
         'beforeDeleteSchedule': function(e) {
             console.log('beforeDeleteSchedule', e);
@@ -103,11 +121,18 @@ $( document ).ready(function() {
                     isAllDay: e.schedule.isAllDay,
                     state: e.schedule.state,
                 },
-                success: function(response) {
-                    console.log(response);
+                success: function(result) {
+                if(result.success)
+                {
+                    alert(result.message + "Please wait while calendar reloads data...");
+                    setSchedules();
+                    refreshScheduleVisibility();
+                }
+                
                 },
-                error: function(response) {
-                    console.log(response);
+                error: function(result) {
+                    console.log(result);
+                    alert(result.message);
                 }
             });
 
@@ -383,7 +408,7 @@ $( document ).ready(function() {
         }
     }
     function saveNewSchedule(scheduleData) {
-        var calendar = scheduleData.calendar || findCalendar(scheduleData.calendarId);
+        var calendar = findCalendar(scheduleData.calendarId);
         var schedule = {
             id: String(chance.guid()),
             title: scheduleData.title,

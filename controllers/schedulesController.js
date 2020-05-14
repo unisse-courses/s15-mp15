@@ -17,13 +17,13 @@ exports.saveScheds = function(req, res) {
     Schedule.save(schedule, function(err, result){
         if(err) {
             console.log(err);
-            res.status(500).json({
-            error: err
-            });
+            result = { success: false, message: "Schedule was not created!" }
+            res.send(result);
         }
         else{
-            res.status(201);
-            console.log(result);
+            result = { success: true, message: "Schedule created!"}
+            // Sending the result as is to handle it the "AJAX-way".
+            res.send(result);
         }
     })
 };
@@ -52,9 +52,16 @@ exports.updateScheds = function(req, res) {
       };
 
     Schedule.update(query, update, function(err, user){
-        if (err) throw err;
-        console.log(user);
-        res.send(user);
+        if(err) {
+            console.log(err);
+            result = { success: false, message: "Schedule was not updated!" }
+            res.send(result);
+        }
+        else{
+            result = { success: true, message: "Schedule updated!"}
+            // Sending the result as is to handle it the "AJAX-way".
+            res.send(result);
+        };
     });   
 };
 
@@ -73,8 +80,15 @@ exports.deleteScheds = function(req,res){
       };
 
     Schedule.delete(query, function (err, sched){
-        if (err) throw err
-        console.log(sched);
-        res.status(200).send();
+        if(err) {
+            console.log(err);
+            result = { success: false, message: "Schedule was not deleted!" }
+            res.send(result);
+        }
+        else{
+            result = { success: true, message: "Schedule deleted!"}
+            // Sending the result as is to handle it the "AJAX-way".
+            res.send(result);
+        }
     });
 }
