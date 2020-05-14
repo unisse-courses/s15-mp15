@@ -135,9 +135,6 @@ $( document ).ready(function() {
                     alert(result.message);
                 }
             });
-
-            setSchedules();
-            refreshScheduleVisibility();
         },
         'afterRenderSchedule': function(e) {
             var schedule = e.schedule;
