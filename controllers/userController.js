@@ -31,9 +31,7 @@ exports.loadUserCal = function(req,res){
                 
                     console.log(req.session);
     
-                    return res.status(200).render('calendar', {
-                      title:  'doetal',
-                  })
+                    res.status(200).redirect('/calendar')
                 }
                 else{
                     req.flash('error_msg', 'Incorrect password. Please try again.');

@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { isPublic } = require('../middlewares/checkAuth');
+const { isPrivate, isPublic } = require('../middlewares/checkAuth');
 
 //Home route (Login Page)
 router.get('/', isPublic, function(req, res) {
@@ -16,5 +16,12 @@ router.get('/', isPublic, function(req, res) {
       title:  'doetal Register',
   })
   });
+
+   //Calendar Page
+   router.get('/calendar', isPrivate, function(req,res){
+    res.render('calendar', {
+        title:  'doetal',
+    })
+    });
 
   module.exports = router;

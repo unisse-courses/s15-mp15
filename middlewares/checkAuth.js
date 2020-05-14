@@ -10,10 +10,7 @@ exports.isPrivate = (req, res, next) => {
   exports.isPublic = (req, res, next) => {
     // If authenticated, go to home page
     if (req.session.user) {
-      return res.status(200).render('calendar', {
-                      title:  'My Calendar',
-                      email: req.session.email,
-      })
+      res.redirect('/calendar');
     } else {
       return next();
     }
