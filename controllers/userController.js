@@ -30,7 +30,7 @@ exports.loadUserCal = function(req,res){
                     req.session.email = user[0].email;
                 
                     console.log(req.session);
-    
+
                     res.status(200).redirect('/calendar')
                 }
                 else{
@@ -94,6 +94,7 @@ exports.loadUserCal = function(req,res){
                         
                         try {
                           Calendar.save(calendar);
+                          req.flash('success_msg', 'Registration Success! You may now Login.');
                           res.status(201).redirect('/');
                         } catch (err) {
                           res.status(500).send(err);
