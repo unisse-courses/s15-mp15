@@ -1,14 +1,16 @@
 # .doetal, a Calendar Based Planner
 
-This repository consists of the files necessary in running a Calendar Based Planner
+This repository consists of the files necessary in running 'doetal" a Calendar Based Planner.
+
+Features:
+Create Calendars with customized names and colors.
+Create, Update, and Delete Plans/Schedules.
+Daily and Monthly View.
+
+Visit https://doetal-app.herokuapp.com/ for a working version of the web app.
+
 
 ## Getting Started
-
-Visit our website here (running on heroku)
-
-```
-https://doetal-app.herokuapp.com/
-```
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
@@ -28,7 +30,6 @@ These instructions will get you a copy of the project up and running on your loc
   ```shell
   cd s15-mp15
   ```
-  
 4. Create a new file `.env`. In this file, set the port, the MongoDB connection URL and the value of `secret` in the `express-session`
 
 ```dotenv
@@ -36,7 +37,6 @@ PORT= 3000
 MONGODB_URL=""
 SESSION_SECRET=""
 ```
-
 5. Install the dependencies in package.json. All needed packages are already included.
   ```shell
   npm install
@@ -44,91 +44,59 @@ SESSION_SECRET=""
 6. Run the server using the script defined (using `nodemon`)
   ```shell
   npm run dev
+   ```
+6. Navigate to [http://localhost:3000/](http://localhost:3000/). You should see the login page (see link to web app above for a sample).
   
-6. Navigate to [http://localhost:3000/](http://localhost:3000/). You should see the login page.
-  ![alt text](screens/registration-screen.png "Registration page")
-
-
 To stop the server, simply key in CTRL+C (Windows) or control (^) + C (Mac).
 
-## (?)Running the tests
-
-(?)Explain how to run the automated tests for this system
-
-### (?)Break down into end to end tests
-
-(?)Explain what these tests test and why
-
-```
-Give an example
-```
-
-### (?)And coding style tests
-
-(?)Explain what these tests test and why
-
-```
-Give an example
-```
 
 ## Deployment
 
 ### Prerequisites
-
-What things you need to install the software and how to install them
 ```
-MongoDB Atlas (Database)
-Heroku (Deployment)
+[git](https://git-scm.com/)
+[MongoDB Atlas](https://www.mongodb.com/cloud/atlas) Cluster
+[Heroku](https://www.heroku.com/)
 ```
-
-Use the `heroku login` command to login to your Heroku account. It will open up the browser for login.
+1. Use the `heroku login` command to login to your Heroku account. It will open up the browser for login.
 ```shell
 heroku login
 ```
-
-Since our application is already connected to a `git` repository, we can now directly create the Heroku app.
+2. Since our application is already connected to a `git` repository, we can now directly create the Heroku app.
 ```shell
 $ heroku create app-name
 Creating app... done, ⬢ protected-sea-52141
 https://protected-sea-52141.herokuapp.com/ | https://git.heroku.com/protected-sea-52141.git
 ```
-Go to your [Heroku Dashboard](https://dashboard.heroku.com/apps) to see the created app.
-
-When you create an app, a git remote (called `heroku`) is also created and associated with your local git repository. Before pushing any changes to the `heroku` remote branch, make sure all changes are commited first.
+3. When you create an app, a git remote (called `heroku`) is also created and associated with your local git repository. Before pushing any changes to the `heroku` remote branch, make sure all changes are commited first.
 ```shell
 git add .
 git commit -m 'Update code for deployment'
 ```
-
-To deploy the application, simply push the code to the `heroku` branch:
+4. To deploy the application, simply push the code to the `heroku` branch:
 ```shell
 git push heroku master
 ```
-
-To know that it was completely deployed, you should see at the end of the build:
+5. To know that it was completely deployed, you should see at the end of the build:
 ```
 ...
 remote: Verifying deploy... done.
 To https://git.heroku.com/protected-sea-52141.git
  * [new branch]      master -> master
 ```
-
-According to the [Heroku Guide](https://devcenter.heroku.com/articles/getting-started-with-nodejs?singlepage=true#deploy-the-app), to ensure that at least one instance is running, execute this command:
+6. According to the [Heroku Guide](https://devcenter.heroku.com/articles/getting-started-with-nodejs?singlepage=true#deploy-the-app), to ensure that at least one instance is running, execute this command:
 ```shell
 heroku ps:scale web=1
 ```
-
-Go to the app's **`Settings`** tab from the [Heroku Dashboard](https://dashboard.heroku.com/apps and click the "Reveal Config Vars" button.
-
+7. Go to the app's **`Settings`** tab from the [Heroku Dashboard](https://dashboard.heroku.com/apps and click the "Reveal Config Vars" button.
+```
 Use the `.env` file created previously to create the config vars. No need for the quotes, just paste the values and make sure to click **Add**.
-
-
-To access the app and get the URL of your application, run:
+```
+8. To access the app and get the URL of your application, run:
 ```shell
 heroku open
 ```
-
-You can also test if the code works locally, by running:
+9. You can also test if the code works locally, by running:
 ```shell
 heroku local web
 ```
@@ -138,20 +106,15 @@ That's it! You now have a fully deployed application on Heroku!
 
 ## Built With
 
+* HTML, CSS, Javascript - Client Side
+* Node.js, Express, Handlebars, AJAX - Server Side
 * [Toast UI](https://ui.toast.com/tui-calendar/) - The calendar ui plugin used in the app
 * [Boostrap](https://getbootstrap.com/) - For free CSS classes
-* [mongoose](https://mongoosejs.com/) - Object modeling used for node.js
+* [mongoose](https://mongoosejs.com/) - Object modeling used for Node.js
 * [mongodb - Atlas](https://www.mongodb.com/) - Cloud-hosted MongoDB service
 * [Heroku](https://dashboard.heroku.com/) - Cloud platform used in running our app
 * [PurpleBooth's README Template](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2) - Templated used in creating this README file
 * [GitHub](https://github.com/) - Used in collaborating, passing requirements for the project
-
-## (?)Contributing
-
-
-## (?)Versioning
-
-(?)You can follow the versioning of the file with the number of commits made on the GitHub repository
 
 ## Team Members:
 
@@ -161,6 +124,6 @@ That's it! You now have a fully deployed application on Heroku!
 
 ## Acknowledgments
 
-* Ms. Unisse Chua for giving us the opportunity to pass our project
+* Ms. [Unisse Chua](https://ph.linkedin.com/in/unissechua) for giving us the opportunity and lessons to create our project
 * Our friends and family
 
