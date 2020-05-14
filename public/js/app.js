@@ -56,7 +56,8 @@ $( document ).ready(function() {
                 isAllDay: e.isAllDay,
                 state: e.state,
             });
-            saveNewSchedule(e); 
+            setSchedules();
+            refreshScheduleVisibility();
         },
         'beforeUpdateSchedule': function(e) {
             var schedule = e.schedule;
@@ -81,7 +82,7 @@ $( document ).ready(function() {
                 state: e.schedule.state,
                 new: e.changes,
             });
-            cal.updateSchedule(schedule.id, schedule.calendarId, changes);
+            setSchedules();
             refreshScheduleVisibility();
         },
         'beforeDeleteSchedule': function(e) {
@@ -109,7 +110,8 @@ $( document ).ready(function() {
                 }
             });
 
-            cal.deleteSchedule(e.schedule.id, e.schedule.calendarId);
+            setSchedules();
+            refreshScheduleVisibility();
         },
         'afterRenderSchedule': function(e) {
             var schedule = e.schedule;
