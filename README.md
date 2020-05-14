@@ -4,7 +4,7 @@ This repository consists of the files necessary in running 'doetal" a Calendar B
 
 Features:
 * Create up to 15 Calendars with customized names and colors.
-* Create, Update, and Delete Plans/Schedules.
+* Create, Update, and Delete Unlimited Plans/Schedules.
 * Daily and Monthly View.
 
 Visit https://doetal-app.herokuapp.com/ for a working version of the web app.
