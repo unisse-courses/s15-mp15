@@ -148,7 +148,6 @@ body {
 }
 
 .lnb-calendars-item {
-  min-height: 14px;
   line-height: 14px;
   padding: 8px 0;
 }
@@ -221,6 +220,10 @@ body {
     right: 0;
     bottom: 35px;
     top: 60px;
+}
+
+.tui-full-calendar-month{
+  min-height:0 !important;
 }
 
 /** custom fontawesome */
