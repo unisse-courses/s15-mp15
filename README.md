@@ -16,6 +16,8 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
+* [git](https://git-scm.com/)
+* [GitHub Desktop](https://desktop.github.com/)(optional)
 * [NodeJS & npm](https://www.npmjs.com/get-npm)
 * [MongoDB Community Edition](https://docs.mongodb.com/manual/administration/install-community/) or [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) Cluster
 * Any text editor for JavaScript, HTML & CSS (VSCode, Atom, SublimeText, etc.)
@@ -55,6 +57,7 @@ To stop the server, simply key in CTRL+C (Windows) or control (^) + C (Mac).
 ### Prerequisites
 
 * [git](https://git-scm.com/)
+* [GitHub Desktop](https://desktop.github.com/)(optional)
 * [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) Cluster
 * [Heroku](https://www.heroku.com/)
 
@@ -72,6 +75,10 @@ https://protected-sea-52141.herokuapp.com/ | https://git.heroku.com/protected-se
 ```shell
 git add .
 git commit -m 'Update code for deployment'
+
+or
+
+commit and push all changes using GitHub Desktop
 ```
 4. To deploy the application, simply push the code to the `heroku` branch:
 ```shell
