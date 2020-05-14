@@ -33,7 +33,7 @@ These instructions will get you a copy of the project up and running on your loc
 4. Create a new file `.env`. In this file, set the port, the MongoDB connection URL and the value of `secret` in the `express-session`
 
 ```dotenv
-PORT= 3000
+PORT = 3000
 MONGODB_URL=""
 SESSION_SECRET=""
 ```
@@ -45,7 +45,7 @@ SESSION_SECRET=""
   ```shell
   npm run dev
    ```
-6. Navigate to [http://localhost:3000/](http://localhost:3000/). You should see the login page (see link to web app above for a sample).
+6. Navigate to [http://localhost:3000/](http://localhost:3000/) or selected port. You should see the login page (see link to web app above for a sample).
   
 To stop the server, simply key in CTRL+C (Windows) or control (^) + C (Mac).
 
@@ -53,11 +53,11 @@ To stop the server, simply key in CTRL+C (Windows) or control (^) + C (Mac).
 ## Deployment
 
 ### Prerequisites
-```
-[git](https://git-scm.com/)
-[MongoDB Atlas](https://www.mongodb.com/cloud/atlas) Cluster
-[Heroku](https://www.heroku.com/)
-```
+
+* [git](https://git-scm.com/)
+* [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) Cluster
+* [Heroku](https://www.heroku.com/)
+
 1. Use the `heroku login` command to login to your Heroku account. It will open up the browser for login.
 ```shell
 heroku login
